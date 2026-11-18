@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EthioFinConnect v4.0 — Digital Financing Marketplace for Ethiopia</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Inter Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            navy: {
+              950: '#070e1a',
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155'
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    .fade-in { animation: fadeIn 0.2s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- 1. PERSISTENT NON-REMOVABLE REGULATORY BOUNDARY BANNER -->
+  <div class="bg-navy-950 text-amber-100 text-xs sm:text-sm py-2.5 px-4 border-b border-amber-500/40">
+    <div class="max-w-7xl mx-auto flex items-center justify-center gap-2 text-center">
+      <i class="fa-solid fa-scale-balanced text-amber-400 shrink-0"></i>
+      <span>
+        <strong class="text-amber-300 tracking-wide">NON-LENDING PLATFORM:</strong>
+        EthioFinConnect does not provide loans, accept deposits, or make final credit decisions.
+        <span class="underline decoration-amber-400/70 underline-offset-2 font-medium">Platform estimate &ne; official valuation &ne; lender credit decision &ne; insurance underwriting.</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- 2. INSTITUTIONAL NAVY/SLATE HEADER & 4-PORTAL ROLE SWITCHER -->
+  <header class="bg-navy-900 text-white shadow-lg sticky top-0 z-40 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+      <!-- Brand -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 border border-amber-400/50 flex items-center justify-center shadow-inner text-white font-extrabold text-lg">
+            <i class="fa-solid fa-landmark"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="font-bold text-lg tracking-tight leading-none text-white">EthioFinConnect</h1>
+              <span class="text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/40 px-2 py-0.5 rounded-full">v4.0</span>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-0.5">Digital Financing Marketplace &bull; Ethiopian Commercial Banks Source Baseline</p>
+          </div>
+        </div>
+        <div class="lg:hidden text-[11px] bg-navy-800 px-2.5 py-1 rounded-lg border border-slate-700">
+          <span id="mobileRuleVer" class="font-mono text-amber-300">ECB_Baseline_v1.0</span>
+        </div>
+      </div>
+
+      <!-- 4 Isolated Portals Switcher -->
+      <nav id="portalSwitcher" class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 bg-navy-950/80 p-1.5 rounded-xl border border-slate-800" aria-label="Portal Switcher">
+        <!-- Rendered dynamically -->
+      </nav>
+
+      <!-- Active Rule Version Pill (Desktop) -->
+      <div class="hidden lg:flex items-center gap-2 text-xs bg-navy-800 px-3 py-1.5 rounded-lg border border-slate-700">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-slate-300">Baseline:</span>
+        <span id="desktopRuleVer" class="font-mono font-semibold text-amber-300">ECB_Baseline_v1.0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. MAIN WORKSPACE CONTAINER -->
+  <main id="appRoot" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
+    <!-- Active portal content rendered here -->
+  </main>
+
+  <!-- 4. FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-4 px-4 mt-8 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div>&copy; 2026 EthioFinConnect v4.0 &mdash; Addis Ababa, Ethiopia. Multi-Portal Digital Financing Infrastructure.</div>
+      <div class="flex flex-wrap items-center gap-3">
+        <span><i class="fa-solid fa-shield-halved text-emerald-700 mr-1"></i>NBE &amp; Proclamation 1321/2024 Aligned</span>
+        <span>&bull;</span>
+        <span><i class="fa-solid fa-book text-amber-600 mr-1"></i>Ethiopian Commercial Banks Source Baseline</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 5. TOAST NOTIFICATION CONTAINER (No alert() or confirm()) -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+  <script>
+    // =========================================================================
+    // 1. VERSIONED LOOKUP TABLES & ETHIOPIAN COMMERCIAL BANKS SOURCE RULE MATRIX
+    // =========================================================================
+
+    // Versioned Dr(n) lookup tables (Years 0–15 loaded; >15 halts with HTTP 422 / INSUFFICIENT_SOURCE_DATA)
+    // Includes exact regression anchor: MANUFACTURING year 7 = 0.7780 (1995 Italian Machine test case)
+    const DEPRECIATION_TABLES = {
+      MOTOR_VEHICLE: {
+        label: 'Table 1: Motor Vehicles (Commercial Truck N=25, SV=0.184)',
+        factors: {
+          0: 1.0000, 1: 0.9180, 2: 0.8420, 3: 0.7720, 4: 0.7080, 5: 0.6500,
+          6: 0.5970, 7: 0.5490, 8: 0.5050, 9: 0.4650, 10: 0.4290, 11: 0.3960,
+          12: 0.3660, 13: 0.3390, 14: 0.3150, 15: 0.2930
+        }
+      },
+      CONSTRUCTION_MACHINERY: {
+        label: 'Table 3: Construction & Earthmoving Machinery (N=25, SV=0.162)',
+        factors: {
+          0: 1.0000, 1: 0.9140, 2: 0.8360, 3: 0.7650, 4: 0.7000, 5: 0.6410,
+          6: 0.5870, 7: 0.5380, 8: 0.4940, 9: 0.4540, 10: 0.4180, 11: 0.3850,
+          12: 0.3550, 13: 0.3280, 14: 0.3040, 15: 0.2820
+        }
+      },
+      MANUFACTURING: {
+        label: 'Table 2: Manufacturing / Industrial Machinery (N=40, SV=0.137)',
+        factors: {
+          0: 1.0000, 1: 0.9650, 2: 0.9310, 3: 0.8980, 4: 0.8660, 5: 0.8350,
+          6: 0.8060, 7: 0.7780, 8: 0.7510, 9: 0.7250, 10: 0.7000, 11: 0.6760,
+          12: 0.6530, 13: 0.6310, 14: 0.6100, 15: 0.5900
+        }
+      },
+      COMMERCIAL: {
+        label: 'Table 4: Commercial Equipment — HVAC / Hotel / Lab (N=15–25)',
+        factors: {
+          0: 1.0000, 1: 0.9050, 2: 0.8180, 3: 0.7390, 4: 0.6670, 5: 0.6020,
+          6: 0.5430, 7: 0.4900, 8: 0.4420, 9: 0.3990, 10: 0.3600, 11: 0.3250,
+          12: 0.2930, 13: 0.2640, 14: 0.2380, 15: 0.2150
+        }
+      }
+    };
+
+    // Table 5: Equipment Condition Factor (EC) Bands
+    const EC_BANDS = [
+      { id: 0, label: 'New / Properly Maintained', min: 1.00, max: 1.00, defaultVal: 1.00 },
+      { id: 1, label: 'Overhauled, Functional', min: 0.87, max: 0.99, defaultVal: 0.92 },
+      { id: 2, label: 'Not Overhauled, Functional', min: 0.75, max: 0.86, defaultVal: 0.80 },
+      { id: 3, label: 'Non-Operational; Minor Repair', min: 0.62, max: 0.74, defaultVal: 0.68 },
+      { id: 4, label: 'Non-Operational; Medium Repair', min: 0.50, max: 0.61, defaultVal: 0.55 },
+      { id: 5, label: 'Units / Minor Parts Unavailable', min: 0.30, max: 0.49, defaultVal: 0.40 },
+      { id: 6, label: 'Major Components Missing / Total Overhaul', min: 0.10, max: 0.29, defaultVal: 0.20 }
+    ];
+
+    // Maker / Origin Region Preference Factor (MM)
+    const MM_FACTORS = {
+      WEST_EUROPE: { label: 'West Europe (e.g., Italy, Germany)', value: 1.0 },
+      NORTH_AMERICA: { label: 'North America (USA, Canada)', value: 1.0 },
+      JAPAN: { label: 'Japan Standards (Toyota, Isuzu, Hino, Komatsu)', value: 1.0 },
+      ASIA: { label: 'Asia (General)', value: 0.9 },
+      AUSTRALIA: { label: 'Australia', value: 0.9 },
+      EAST_EUROPE: { label: 'Eastern Europe', value: 0.8 },
+      SOUTH_AMERICA: { label: 'South America', value: 0.8 },
+      AFRICA: { label: 'Africa', value: 0.8 }
+    };
+
+    // Foreclosure / Auction Price Setting Factor (APSF)
+    const APSF_TABLE = {
+      0: 0.70, 10: 0.85, 20: 0.95, 30: 1.00, 40: 1.05, 50: 1.10,
+      60: 1.15, 70: 1.20, 80: 1.25, 90: 1.30, 100: 1.35
+    };
+
+    // Ethiopian Commercial Banks Source Rule Matrix (ELIG-01 to INS-02)
+    const SOURCE_RULES_MATRIX = [
+      { id: 'ELIG-01', name: 'Lawful Business & Licensing', logic: 'Renewed fiscal-year Trade/Business License + Principal Registration / Investment License', source: 'Ethiopian Commercial Banks Credit Procedure Baseline', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'ELIG-02', name: 'TIN & ERCA Tax Clearance', logic: 'TIN for Applicant, Spouse, Mortgagor, >10% Shareholders; ERCA Tax Clearance & Marital Status/ID', source: 'Ethiopian Commercial Banks Credit Procedure Baseline', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'ELIG-03', name: 'Credit Conduct & NPL Gate', logic: 'No active NPL in any Ethiopian bank; no checking-account mal-operation; prior loss loans settled', source: 'Ethiopian Commercial Banks Credit Procedure Baseline', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'ELIG-04', name: 'Non-Debt Equity Contribution', logic: 'Minimum borrower equity contribution must NOT originate from bank financing or other debt', source: 'Ethiopian Commercial Banks Credit Procedure Baseline', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'CRB-01', name: 'CRB Dual Consent & 3-Month Validity', logic: 'Written CRB Access + Inter-Bank Sharing consents required; CRB inquiry valid 90 days (NBE CRB/02/2019)', source: 'Ethiopian Commercial Banks Credit Procedure Baseline', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'FIN-01', name: 'Financial Statement Thresholds', logic: 'Share Co (any) or Exposure ≥ ETB 5M: Audited (NBE auditor) + Interim; PLC <5M or Sole/Part 1M–5M: 3-yr Provisional; <1M: CCR', source: 'Ethiopian Commercial Banks Credit Procedure Baseline', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'PROD-01', name: 'Term Loan Tenor & Grace Caps', logic: 'Short ≤12m (6m grace), Med 13–60m (24m grace), Long 61–240m (36m grace). Business Plan required >12m; NO interest grace', source: 'Ethiopian Commercial Banks Credit Procedure Baseline', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'VEH-02', name: 'Vehicle & Machinery Equity Matrix', logic: 'New + Building (≥30% paid / ≥40% DF): 30% Equity / 70% Bank; Asset-Only: 50% / 50%; 2nd-Hand ≤2yr Asset-Only: 70% / 30%', source: 'Ethiopian Commercial Banks Credit Procedure Baseline', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'RATE-01', name: '8-Grade Credit Risk Rating', logic: 'Fin 35%, Bus 10%, Mgmt 15%, Acct 25%, Rel 15%. Grades 1–5 Bankable, 6–8 Not Bankable; Action Plan Grades 4–8; CCR 75% rule; Discrepancy -5/-2', source: 'Ethiopian Commercial Banks Credit Procedure Baseline', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'VAL-01', name: 'Empirical Collateral Valuation', logic: 'EV = RC × MM × Dr(n) × EC; RC = MC + DC + UC (7.5% CIF UC allowance if docs unavailable; Duty-Free entitlement rule)', source: 'Ethiopian Commercial Banks Mechanical Equipment Valuation Standard', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'VAL-03', name: 'Strict Table Bounds (No Extrapolation)', logic: 'Service years outside loaded Dr(n) lookup tables halt with HTTP 422 / INSUFFICIENT_SOURCE_DATA', source: 'Ethiopian Commercial Banks Mechanical Equipment Valuation Standard', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'VAL-06', name: 'Industrial Plant Completeness Gate', logic: 'Partial mechanical-equipment estimation for industrial manufacturing plants is strictly prohibited', source: 'Ethiopian Commercial Banks Mechanical Equipment Valuation Standard', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'VAL-07', name: 'Foreclosure / Auction Floor Price', logic: 'AP = EV × APSF (0.70–1.35). Disabled in ordinary collateral valuation; Foreclosure workflow only', source: 'Ethiopian Commercial Banks Mechanical Equipment Valuation Standard', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'MARG-03', name: 'Collateral Safety Margins', logic: 'Vehicles & Construction Machinery: ≤10 yrs = 50%, >10–15 yrs = 75%, >15 yrs = 95%. Kept separate from EV', source: 'Ethiopian Commercial Banks Credit Procedure Baseline', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'INS-01', name: '100% Coverage & Building Exclusions', logic: '100% collateral insurance required before disbursement (excluding building location value, consultancy fee, fence, compound)', source: 'Ethiopian Commercial Banks Credit Procedure Baseline', effective: '2026-01-01', status: 'APPROVED' },
+      { id: 'INS-02', name: 'Post-Approval Insurance Marketplace Gate', logic: 'Activates strictly after ApplicationStatus = APPROVED and active Borrower INSURANCE_DATA_SHARE consent', source: 'Ethiopian Commercial Banks Credit Procedure Baseline', effective: '2026-01-01', status: 'APPROVED' }
+    ];
+
+    // =========================================================================
+    // 2. SHARED REACTIVE STATE
+    // =========================================================================
+    const state = {
+      activePortal: 'borrower', // 'borrower' | 'bank' | 'insurance' | 'admin'
+      activeRuleVersion: 'ECB_Baseline_v1.0',
+      activeMechVersion: 'ECB_Mech_v1.0',
+      ruleMinorCounter: 0,
+
+      // Portal 1: Borrower State
+      borrower: {
+        step: 1, // 1..6
+        profile: {
+          applicantName: 'Dawit Bekele',
+          businessName: 'Zema Logistics & Earthworks PLC',
+          legalForm: 'PLC', // SOLE_PROP | PARTNERSHIP | PLC | SHARE_CO
+          requestedAmount: 6500000,
+          tenorMonths: 48,
+          purpose: 'Commercial Dump Truck & Fleet Expansion',
+          declaredEquityPct: 32,
+          equitySource: 'RETAINED_EARNINGS', // RETAINED_EARNINGS | PERSONAL_SAVINGS | BANK_DEBT
+          hasBuildingCollateral: true,
+          crbAccessConsent: true,
+          crbSharingConsent: true,
+          insuranceConsent: true
+        },
+        docsChecked: {
+          trade_license: true,
+          principal_reg: true,
+          tin_all: true,
+          erca_clearance: false,
+          marital_id: true,
+          audited_fin: false,
+          provisional_fin: true,
+          ccr_report: true,
+          business_plan: true
+        },
+        asset: {
+          assetClass: 'MOTOR_VEHICLE',
+          rcEtb: 11500000,
+          serviceYear: 3,
+          mmRegion: 'JAPAN',
+          ecValue: 0.88
+        }
+      },
+
+      // Live Applications Shared Across Portals 1, 2, 3
+      applications: [
+        {
+          id: 'APP-2026-101',
+          submittedAt: '2026-11-18 11:30 EAT',
+          applicantName: 'Hanna Tesfaye',
+          businessName: 'Abay Heavy Transport & Construction PLC',
+          legalForm: 'PLC',
+          purpose: 'Construction Machinery & Dump Truck Acquisition',
+          requestedAmount: 7200000,
+          tenorMonths: 48,
+          declaredEquityPct: 30,
+          equitySource: 'RETAINED_EARNINGS',
+          assetSummary: 'Motor Vehicle (Service Yr: 2, MM: 1.00, EC: 0.90)',
+          indicativeEV: 8950000,
+          safetyMarginPct: 50,
+          readinessScore: 84,
+          insuranceConsent: true,
+          crbDate: '2026-10-12', // 37 days old (< 90 days)
+          status: 'UNDER_APPRAISAL', // UNDER_APPRAISAL | APPROVED | DECLINED | DISBURSEMENT_CLEARED
+          lafNumber: 'LAF-ECB-2026-0412',
+          committeeSigned: false,
+          pinnedRuleVersion: 'ECB_Baseline_v1.0',
+          docVerifications: {
+            trade_license: 'ORIGINAL_SEEN',
+            principal_reg: 'ORIGINAL_SEEN',
+            tin_all: 'ORIGINAL_SEEN',
+            erca_clearance: 'ORIGINAL_SEEN',
+            audited_fin: 'PENDING',
+            business_plan: 'ORIGINAL_SEEN'
+          },
+          rating: {
+            financial: 28,      // /35
+            business: 8,        // /10
+            management: 12,     // /15
+            account: 20,        // /25
+            relationship: 11,   // /15
+            isRecentCCR: false, // 75% financial score rule
+            discrepancy: 'NONE' // NONE | MINOR (-2) | MAJOR (-5)
+          }
+        }
+      ],
+
+      // Portal 2: Bank / MFI Officer State
+      bank: {
+        subTab: 'appraisal', // 'appraisal' | 'valuation'
+        selectedAppId: 'APP-2026-101',
+        workbench: {
+          role: 'MAKER', // 'MAKER' | 'CHECKER'
+          caseId: 'VAL-ECB-2026-008',
+          assetTitle: 'Commercial Earthmoving / Dump Truck Fleet Unit',
+          assetClass: 'MOTOR_VEHICLE',
+          isPartialFactory: false,
+          state: 'DRAFT', // DRAFT | MAKER_SUBMITTED | CHECKER_REVIEW | APPROVED | RETURNED_FOR_CORRECTION | EXCEPTION_ESCALATED
+          pinnedRuleVersion: 'ECB_Mech_v1.0',
+          mc: 62000,
+          dc: 22000,
+          uc: 4500,
+          cifValue: 70000,
+          fxRate: 128.50,
+          dutyStatus: 'PAID', // PAID | DUTY_FREE
+          dutyFreeEntitlement: false,
+          use75CifAllowance: false,
+          serviceYear: 2,
+          mmRegion: 'JAPAN',
+          ecBandIndex: 1,
+          ecValue: 0.90,
+          ecJustification: 'Physical and technical inspection confirmed operational engine, hydraulic drive, and intact chassis; routine servicing advised.',
+          foreclosureMode: false,
+          creditFacilityPct: 30,
+          gateChecks: [
+            { id: 'g1', label: 'Owner Name Matches Title Booklet / Ownership Certificate', status: 'PASS' },
+            { id: 'g2', label: 'Chassis, Engine, Serial & Plate Numbers Match Documents', status: 'PASS' },
+            { id: 'g3', label: 'Physical Location Matches Trade License / LHC / Rental Agreement', status: 'PASS' },
+            { id: 'g4', label: 'Work Permit, Customs Declaration & CIF Documents Verified', status: 'PASS' }
+          ]
+        }
+      },
+
+      // Portal 3: Collateral Insurance Marketplace State
+      insurance: {
+        selectedAppId: null,
+        selectedQuoteId: null,
+        quotes: [
+          { id: 'INS-A', insurer: 'Licensed Ethiopian Insurer A', ratePct: 2.10, scope: '100% Comprehensive Collateral Cover + Political Violence / Strike', validity: '15 Days' },
+          { id: 'INS-B', insurer: 'Licensed Ethiopian Insurer B', ratePct: 1.98, scope: '100% Comprehensive Collateral & Third-Party Liability Cover', validity: '14 Days' },
+          { id: 'INS-C', insurer: 'Licensed Ethiopian Insurer C', ratePct: 2.25, scope: '100% Comprehensive + Heavy Machinery Breakdown Extension', validity: '21 Days' }
+        ],
+        policy: {
+          policyNumber: '',
+          insuredValue: 0,
+          effectiveDate: '2026-11-20',
+          expiryDate: '2027-11-19',
+          lossPayeeConfirmed: false,
+          confirmedForDisbursement: false
+        }
+      },
+
+      // Portal 4: Immutable Audit Log
+      auditLogs: [
+        { ts: '2026-11-18 11:30:14', actor: 'BORROWER', action: 'SUBMIT_DOSSIER', target: 'APP-2026-101', ruleVersion: 'ECB_Baseline_v1.0', details: 'Submitted Abay Heavy Transport & Construction PLC dossier to Participating Ethiopian Commercial Bank — Tier 1' },
+        { ts: '2026-11-18 11:29:50', actor: 'BORROWER', action: 'CONSENT_GRANTED', target: 'CONSENT-101', ruleVersion: 'ECB_Baseline_v1.0', details: 'Granted CRB_ACCESS, CRB_SHARING, and INSURANCE_DATA_SHARE consents' },
+        { ts: '2026-11-18 09:00:00', actor: 'ADMIN', action: 'PUBLISH_BASELINE', target: 'ECB_Baseline_v1.0', ruleVersion: 'ECB_Baseline_v1.0', details: 'Published Ethiopian Commercial Banks Source Baseline & Mechanical Equipment Valuation Standard' }
+      ]
+    };
+
+    // =========================================================================
+    // 3. UTILITIES (FORMATTING, TOASTS, IMMUTABLE AUDIT LOGGING)
+    // =========================================================================
+    function formatETB(num) {
+      if (isNaN(num) || num === null) return 'ETB 0.00';
+      return 'ETB ' + Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function logAudit(actor, action, target, details, customVersion = null) {
+      const ts = new Date().toISOString().replace('T', ' ').substring(0, 19);
+      state.auditLogs.unshift({
+        ts,
+        actor,
+        action,
+        target,
+        ruleVersion: customVersion || state.activeRuleVersion,
+        details
+      });
+    }
+
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const styles = {
+        success: 'bg-navy-900 text-white border-emerald-400',
+        warning: 'bg-amber-600 text-white border-amber-200',
+        error: 'bg-red-700 text-white border-red-300',
+        info: 'bg-slate-800 text-white border-sky-400'
+      };
+      const icons = {
+        success: 'fa-circle-check text-emerald-400',
+        warning: 'fa-triangle-exclamation text-amber-200',
+        error: 'fa-circle-xmark text-red-200',
+        info: 'fa-circle-info text-sky-300'
+      };
+      const el = document.createElement('div');
+      el.className = `pointer-events-auto flex items-start gap-2.5 px-4 py-3 rounded-xl shadow-xl border-l-4 text-xs sm:text-sm fade-in ${styles[type] || styles.info}`;
+      el.innerHTML = `<i class="fa-solid ${icons[type] || icons.info} mt-0.5"></i><span class="flex-1">${message}</span>`;
+      container.appendChild(el);
+      setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => el.remove(), 300);
+      }, 3800);
+    }
+
+    // =========================================================================
+    // 4. CORE BANKING, VALUATION & READINESS ENGINES
+    // =========================================================================
+
+    function classifyTenor(months) {
+      const m = Number(months) || 0;
+      if (m <= 12) return { category: 'Short-Term Loan (≤12m)', maxGrace: 6, needsPlan: false };
+      if (m <= 60) return { category: 'Medium-Term Loan (13–60m)', maxGrace: 24, needsPlan: true };
+      return { category: 'Long-Term Loan (61–240m)', maxGrace: 36, needsPlan: true };
+    }
+
+    function getDynamicChecklist(profile) {
+      const tenorInfo = classifyTenor(profile.tenorMonths);
+      const amt = Number(profile.requestedAmount) || 0;
+      const lf = profile.legalForm;
+
+      const list = [
+        { id: 'trade_license', name: 'Renewed Trade / Business License (Current Fiscal Year)', rule: 'ELIG-01' },
+        { id: 'principal_reg', name: 'Principal Registration Certificate / Investment License', rule: 'ELIG-01' },
+        { id: 'tin_all', name: 'TIN Certificates (Applicant, Spouse, Mortgagor, >10% Shareholders)', rule: 'ELIG-02' },
+        { id: 'erca_clearance', name: 'ERCA Tax Clearance Letter', rule: 'ELIG-02' },
+        { id: 'marital_id', name: 'Marital Status Certificate & Proof of Identity (ID / Passport)', rule: 'ELIG-02' }
+      ];
+
+      // Conditional Financial Statement Rules (FIN-01)
+      if (lf === 'SHARE_CO' || amt >= 5000000) {
+        list.push({ id: 'audited_fin', name: 'Audited Financial Statements (NBE-Authorized Auditor) + Latest Interim Statements', rule: 'FIN-01' });
+      } else if (lf === 'PLC' || ((lf === 'SOLE_PROP' || lf === 'PARTNERSHIP') && amt >= 1000000)) {
+        list.push({ id: 'provisional_fin', name: 'Provisional Financial Statements (Latest 3 Consecutive Years, GAAP/IFRS)', rule: 'FIN-01' });
+      } else {
+        list.push({ id: 'ccr_report', name: 'Commercial Credit Report (CCR) — Accepted for Exposure < ETB 1,000,000', rule: 'FIN-01' });
+      }
+
+      if (tenorInfo.needsPlan) {
+        list.push({ id: 'business_plan', name: 'Detailed Business Plan / Capital-Investment Feasibility Study (Tenor > 12m)', rule: 'PROD-01' });
+      }
+
+      return list;
+    }
+
+    function getSafetyMarginPct(serviceYear) {
+      const n = Number(serviceYear) || 0;
+      if (n <= 10) return 50;
+      if (n <= 15) return 75;
+      return 95;
+    }
+
+    function computeBorrowerValuation(asset) {
+      const table = DEPRECIATION_TABLES[asset.assetClass];
+      const n = Math.floor(Number(asset.serviceYear));
+      const dr = (table && table.factors.hasOwnProperty(n)) ? table.factors[n] : null;
+      const mm = MM_FACTORS[asset.mmRegion]?.value ?? null;
+      const ec = Math.max(0.10, Math.min(1.00, Number(asset.ecValue) || 0.10));
+      const rc = Number(asset.rcEtb) || 0;
+
+      const insufficientData = (dr === null || mm === null || n < 0 || n > 15);
+      const ev = insufficientData ? 0 : rc * mm * dr * ec;
+      const safetyMarginPct = getSafetyMarginPct(n);
+      const eligibleCollateral = insufficientData ? 0 : ev * (1 - safetyMarginPct / 100);
+
+      return {
+        rc, dr, mm, ec, ev, safetyMarginPct, eligibleCollateral,
+        insufficientData,
+        tableLabel: table ? table.label : 'Unknown Table'
+      };
+    }
+
+    function computeWorkbenchValuation(w) {
+      const fx = Number(w.fxRate) || 1;
+      const mc = Number(w.mc) || 0;
+      let dc = Number(w.dc) || 0;
+      let uc = Number(w.uc) || 0;
+      const cif = Number(w.cifValue) || 0;
+
+      let dutyFreeApplied = false;
+      if (w.dutyFreeEntitlement && w.dutyStatus === 'PAID') {
+        dutyFreeApplied = true;
+        dc = dc * 0.45; // Enforce duty-free entitlement rule (exclude duty/tax)
+      }
+      if (w.use75CifAllowance) {
+        uc = cif * 0.075;
+      }
+
+      const rcEtb = (mc + dc + uc) * fx;
+      const table = DEPRECIATION_TABLES[w.assetClass];
+      const n = Math.floor(Number(w.serviceYear));
+      const dr = (table && table.factors.hasOwnProperty(n)) ? table.factors[n] : null;
+      const mm = MM_FACTORS[w.mmRegion]?.value ?? 1.0;
+      const ec = Math.max(0.10, Math.min(1.00, Number(w.ecValue) || 0.10));
+
+      const insufficientData = (dr === null || n < 0 || n > 15);
+      const evEtb = insufficientData ? 0 : rcEtb * mm * dr * ec;
+      const safetyMarginPct = getSafetyMarginPct(n);
+      const apsf = APSF_TABLE[w.creditFacilityPct] ?? 1.0;
+      const auctionPrice = evEtb * apsf;
+
+      return {
+        rcEtb, dc, uc, dutyFreeApplied, dr, mm, ec, evEtb,
+        safetyMarginPct, apsf, auctionPrice, insufficientData
+      };
+    }
+
+    function computeReadinessScore() {
+      const p = state.borrower.profile;
+      const checklist = getDynamicChecklist(p);
+      const uploaded = checklist.filter(d => state.borrower.docsChecked[d.id]).length;
+      const docPct = checklist.length ? Math.round((uploaded / checklist.length) * 100) : 0;
+      const val = computeBorrowerValuation(state.borrower.asset);
+
+      let score = 0;
+      const strengths = [];
+      const weaknesses = [];
+      const actions = [];
+
+      // 1. Document Completeness (30 pts)
+      score += Math.round((docPct / 100) * 30);
+      if (docPct === 100) strengths.push('100% of dynamic checklist documents prepared');
+      else {
+        weaknesses.push(`Document checklist is ${docPct}% complete`);
+        checklist.filter(d => !state.borrower.docsChecked[d.id]).forEach(d => actions.push(`Upload: ${d.name} (${d.rule})`));
+      }
+
+      // 2. Eligibility & Non-Debt Equity (25 pts)
+      const nonDebtOk = p.equitySource !== 'BANK_DEBT';
+      const reqEquity = p.hasBuildingCollateral ? 30 : 50;
+      if (nonDebtOk) { score += 15; strengths.push('Non-debt equity source verified (ELIG-04)'); }
+      else { weaknesses.push('Debt-financed equity violates ELIG-04'); actions.push('Provide equity from non-debt sources (retained earnings / savings)'); }
+
+      if (Number(p.declaredEquityPct) >= reqEquity) {
+        score += 10;
+        strengths.push(`Declared equity (${p.declaredEquityPct}%) meets ${reqEquity}% baseline threshold (VEH-02)`);
+      } else {
+        score += 3;
+        weaknesses.push(`Declared equity (${p.declaredEquityPct}%) below required ${reqEquity}%`);
+        actions.push(`Increase equity to ≥${reqEquity}% or add building collateral covering ≥30% of loan`);
+      }
+
+      // 3. Consents & Compliance (15 pts)
+      if (p.crbAccessConsent && p.crbSharingConsent) {
+        score += 15;
+        strengths.push('Dual NBE CRB written consents recorded (CRB-01)');
+      } else {
+        weaknesses.push('Missing mandatory CRB written consent(s)');
+        actions.push('Enable both CRB Access and Inter-Bank Sharing consents in Step 1');
+      }
+
+      // 4. Collateral Position (30 pts)
+      if (!val.insufficientData && val.ev >= Number(p.requestedAmount)) {
+        score += 30;
+        strengths.push(`Indicative Asset EV (${formatETB(val.ev)}) supports requested financing`);
+      } else if (!val.insufficientData && val.ev > 0) {
+        score += 15;
+        weaknesses.push('Indicative Asset EV is below requested loan amount');
+        actions.push('Supplement with additional building collateral or adjust loan amount');
+      } else {
+        weaknesses.push('Indicative valuation halted due to out-of-bounds service year');
+        actions.push('Review asset service year or request institutional exception appraisal');
+      }
+
+      score = Math.max(1, Math.min(100, score));
+      return { score, docPct, reqEquity, nonDebtOk, strengths, weaknesses, actions };
+    }
+
+    function computeBankGrade(rating) {
+      // Apply CCR 75% financial score rule if recent statement is CCR
+      const rawFin = Number(rating.financial) || 0;
+      const effectiveFin = rating.isRecentCCR ? rawFin * 0.75 : rawFin;
+      const discrepancyPenalty = rating.discrepancy === 'MAJOR' ? -5 : rating.discrepancy === 'MINOR' ? -2 : 0;
+
+      const totalRaw = effectiveFin + Number(rating.business) + Number(rating.management) + Number(rating.account) + Number(rating.relationship) + discrepancyPenalty;
+      const total = Math.max(0, Math.min(100, Number(totalRaw.toFixed(2))));
+
+      let grade = 8, bankable = false;
+      if (total >= 85) { grade = 1; bankable = true; }
+      else if (total >= 70) { grade = 2; bankable = true; }
+      else if (total >= 60) { grade = 3; bankable = true; }
+      else if (total >= 50) { grade = 4; bankable = true; }
+      else if (total >= 40) { grade = 5; bankable = true; }
+      else if (total >= 30) { grade = 6; bankable = false; }
+      else if (total >= 25) { grade = 7; bankable = false; }
+      else { grade = 8; bankable = false; }
+
+      return { total, effectiveFin, discrepancyPenalty, grade, bankable, actionPlanMandatory: grade >= 4 };
+    }
+
+    // =========================================================================
+    // 5. RENDERING ENGINE
+    // =========================================================================
+
+    function renderPortalSwitcher() {
+      const unlockedInsurance = state.applications.some(a => (a.status === 'APPROVED' || a.status === 'DISBURSEMENT_CLEARED') && a.insuranceConsent);
+      const portals = [
+        { id: 'borrower', label: 'Borrower Portal', icon: 'fa-user-tie', badge: `Step ${state.borrower.step}/6` },
+        { id: 'bank', label: 'Bank / MFI Portal', icon: 'fa-building-columns', badge: state.applications.length },
+        { id: 'insurance', label: 'Insurance Market', icon: 'fa-shield-halved', badge: unlockedInsurance ? 'OPEN' : 'LOCKED' },
+        { id: 'admin', label: 'Admin & Rules', icon: 'fa-sliders', badge: state.auditLogs.length }
+      ];
+
+      document.getElementById('desktopRuleVer').textContent = state.activeRuleVersion;
+      document.getElementById('mobileRuleVer').textContent = state.activeRuleVersion;
+
+      document.getElementById('portalSwitcher').innerHTML = portals.map(p => {
+        const active = state.activePortal === p.id;
+        const badgeStyle =
+          p.badge === 'LOCKED' ? 'bg-slate-700 text-slate-300' :
+          p.badge === 'OPEN' ? 'bg-emerald-500 text-navy-950' :
+          active ? 'bg-navy-950 text-amber-300' : 'bg-navy-800 text-slate-300';
+
+        return `
+          <button onclick="switchPortal('${p.id}')" class="flex items-center justify-center px-3 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+            active ? 'bg-amber-500 text-navy-950 shadow-sm' : 'text-slate-200 hover:bg-navy-800'
+          }">
+            <i class="fa-solid ${p.icon} mr-1.5"></i>
+            <span class="truncate">${p.label}</span>
+            <span class="ml-1.5 text-[10px] px-1.5 py-0.5 rounded-full font-bold ${badgeStyle}">${p.badge}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderApp() {
+      renderPortalSwitcher();
+      const root = document.getElementById('appRoot');
+      if (state.activePortal === 'borrower') root.innerHTML = renderBorrowerPortal();
+      else if (state.activePortal === 'bank') root.innerHTML = renderBankPortal();
+      else if (state.activePortal === 'insurance') root.innerHTML = renderInsurancePortal();
+      else if (state.activePortal === 'admin') root.innerHTML = renderAdminPortal();
+    }
+
+    // -------------------------------------------------------------------------
+    // PORTAL 1: BORROWER PORTAL (6-STAGE WORKFLOW)
+    // -------------------------------------------------------------------------
+    function renderBorrowerPortal() {
+      const b = state.borrower;
+      const hasApproved = state.applications.some(a => (a.status === 'APPROVED' || a.status === 'DISBURSEMENT_CLEARED') && a.insuranceConsent);
+      const readiness = computeReadinessScore();
+
+      const steps = [
+        { num: 1, title: 'Profile & Request' },
+        { num: 2, title: 'Dynamic Documents' },
+        { num: 3, title: 'Indicative Valuation' },
+        { num: 4, title: 'Readiness Score' },
+        { num: 5, title: 'Lender Matching' },
+        { num: 6, title: hasApproved ? 'Insurance (Open)' : 'Insurance [LOCKED]' }
+      ];
+
+      const header = `
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 mb-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Portal 1 &bull; SME Borrower Workspace</span>
+              <h2 class="text-lg font-bold text-slate-900">Financing Readiness, Indicative Valuation &amp; Lender Matching</h2>
+            </div>
+            <div class="flex items-center gap-4 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200">
+              <div>
+                <div class="text-[10px] uppercase font-bold text-slate-500">Readiness Score</div>
+                <div class="text-sm font-extrabold text-emerald-700">${readiness.score} / 100</div>
+              </div>
+              <div class="border-l border-slate-200 pl-4">
+                <div class="text-[10px] uppercase font-bold text-slate-500">Docs Ready</div>
+                <div class="text-sm font-extrabold text-amber-600">${readiness.docPct}%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+            ${steps.map(s => {
+              const active = b.step === s.num;
+              const locked = s.num === 6 && !hasApproved;
+              return `
+                <button onclick="${locked ? "showToast('Step 6 (Insurance) is LOCKED until a Participating Bank/MFI approves your loan in Portal 2.', 'warning')" : `setBorrowerStep(${s.num})`}"
+                  class="flex items-center gap-2 p-2.5 rounded-xl border text-left transition-all text-xs font-semibold ${
+                    locked ? 'bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed' :
+                    active ? 'bg-navy-900 border-navy-900 text-white shadow-sm' :
+                    'bg-slate-50 border-slate-200 text-slate-700 hover:border-emerald-600'
+                  }">
+                  <span class="w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-[11px] font-bold ${
+                    locked ? 'bg-slate-200 text-slate-500' :
+                    active ? 'bg-amber-400 text-navy-950' : 'bg-emerald-100 text-emerald-800'
+                  }">${locked ? '<i class="fa-solid fa-lock text-[10px]"></i>' : s.num}</span>
+                  <span class="truncate">${s.title}</span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+
+      let content = '';
+      if (b.step === 1) content = renderBorrowerStep1();
+      else if (b.step === 2) content = renderBorrowerStep2();
+      else if (b.step === 3) content = renderBorrowerStep3();
+      else if (b.step === 4) content = renderBorrowerStep4();
+      else if (b.step === 5) content = renderBorrowerStep5();
+      else if (b.step === 6) {
+        content = `
+          <div class="bg-white rounded-2xl shadow-sm border border-emerald-200 p-8 text-center fade-in">
+            <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto mb-4 text-3xl">
+              <i class="fa-solid fa-shield-check"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Loan Approved &mdash; Collateral Insurance Marketplace Unlocked</h3>
+            <p class="text-sm text-slate-600 max-w-xl mx-auto mt-2 mb-6">
+              A participating Ethiopian commercial bank has approved your secured loan. Continue to Portal 3 to compare quotes from licensed Ethiopian insurers and fulfill your pre-disbursement insurance condition.
+            </p>
+            <button onclick="switchPortal('insurance')" class="px-6 py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl shadow-sm text-sm">
+              Open Collateral Insurance Marketplace <i class="fa-solid fa-arrow-right ml-1.5"></i>
+            </button>
+          </div>
+        `;
+      }
+
+      return `<div class="fade-in">${header}${content}</div>`;
+    }
+
+    function renderBorrowerStep1() {
+      const p = state.borrower.profile;
+      const tenorInfo = classifyTenor(p.tenorMonths);
+      const isDebtEquity = p.equitySource === 'BANK_DEBT';
+
+      return `
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 fade-in">
+          <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-5">
+            <h3 class="text-base font-bold text-slate-900 border-b border-slate-100 pb-3">
+              <i class="fa-solid fa-id-card text-emerald-700 mr-2"></i>Step 1: Borrower Profile &amp; Financing Request
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Applicant Full Name</label>
+                <input type="text" value="${p.applicantName}" oninput="updateBorrowerProfile('applicantName', this.value)"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Business Name</label>
+                <input type="text" value="${p.businessName}" oninput="updateBorrowerProfile('businessName', this.value)"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Legal Form (Updates Document Checklist)</label>
+                <select onchange="updateBorrowerProfile('legalForm', this.value)"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-emerald-600">
+                  <option value="SOLE_PROP" ${p.legalForm === 'SOLE_PROP' ? 'selected' : ''}>Sole Proprietorship</option>
+                  <option value="PARTNERSHIP" ${p.legalForm === 'PARTNERSHIP' ? 'selected' : ''}>Partnership</option>
+                  <option value="PLC" ${p.legalForm === 'PLC' ? 'selected' : ''}>Private Limited Company (PLC)</option>
+                  <option value="SHARE_CO" ${p.legalForm === 'SHARE_CO' ? 'selected' : ''}>Share Company (S.C.)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Requested Loan Amount (ETB)</label>
+                <input type="number" step="100000" value="${p.requestedAmount}" oninput="updateBorrowerProfile('requestedAmount', Number(this.value))"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-mono focus:ring-2 focus:ring-emerald-600" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Tenor (Months: Short ≤12, Med 13–60, Long 61–240)</label>
+                <input type="number" min="1" max="240" value="${p.tenorMonths}" oninput="updateBorrowerProfile('tenorMonths', Number(this.value))"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-mono focus:ring-2 focus:ring-emerald-600" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Financing Purpose</label>
+                <input type="text" value="${p.purpose}" oninput="updateBorrowerProfile('purpose', this.value)"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-600" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Declared Equity Contribution (%)</label>
+                <input type="number" min="0" max="100" value="${p.declaredEquityPct}" oninput="updateBorrowerProfile('declaredEquityPct', Number(this.value))"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-mono focus:ring-2 focus:ring-emerald-600" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Equity Source (ELIG-04 Non-Debt Check)</label>
+                <select onchange="updateBorrowerProfile('equitySource', this.value)"
+                  class="w-full px-3 py-2 rounded-xl border ${isDebtEquity ? 'border-red-500 bg-red-50 text-red-800' : 'border-slate-300 bg-white'} text-sm">
+                  <option value="RETAINED_EARNINGS" ${p.equitySource === 'RETAINED_EARNINGS' ? 'selected' : ''}>Business Retained Earnings (Eligible)</option>
+                  <option value="PERSONAL_SAVINGS" ${p.equitySource === 'PERSONAL_SAVINGS' ? 'selected' : ''}>Verified Personal / Shareholder Savings (Eligible)</option>
+                  <option value="BANK_DEBT" ${p.equitySource === 'BANK_DEBT' ? 'selected' : ''}>Bank Loan / Borrowed Funds (INELIGIBLE)</option>
+                </select>
+              </div>
+            </div>
+
+            ${isDebtEquity ? `
+              <div class="p-3.5 rounded-xl bg-red-50 border border-red-300 text-xs text-red-800 flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation text-red-600"></i>
+                <span><strong>Rule ELIG-04 Violation:</strong> Borrower minimum equity contribution must NOT come from bank financing or other debt.</span>
+              </div>
+            ` : ''}
+
+            <label class="flex items-center gap-2 text-xs font-semibold text-slate-700 cursor-pointer">
+              <input type="checkbox" ${p.hasBuildingCollateral ? 'checked' : ''} onchange="updateBorrowerProfile('hasBuildingCollateral', this.checked)" class="w-4 h-4 accent-emerald-700" />
+              Offering Additional Building Collateral (≥30% of loan — qualifies for 30% Equity / 70% Bank tier)
+            </label>
+
+            <!-- Dual Consents (Logged to Audit Trail) -->
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2.5">
+              <div class="text-xs font-bold text-slate-700 uppercase tracking-wider">Mandatory Consents (Timestamped to Audit Log)</div>
+              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" ${p.crbAccessConsent ? 'checked' : ''} onchange="updateBorrowerConsent('crbAccessConsent', this.checked)" class="mt-0.5 w-4 h-4 accent-emerald-700" />
+                <span><strong>CRB Access Consent (CRB-01):</strong> Authorize participating banks to pull my Credit Reference Bureau report (NBE CRB/02/2019).</span>
+              </label>
+              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" ${p.crbSharingConsent ? 'checked' : ''} onchange="updateBorrowerConsent('crbSharingConsent', this.checked)" class="mt-0.5 w-4 h-4 accent-emerald-700" />
+                <span><strong>Inter-Bank CRB Sharing Consent (CRB-01):</strong> Consent to credit-information sharing among Ethiopian banks.</span>
+              </label>
+              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" ${p.insuranceConsent ? 'checked' : ''} onchange="updateBorrowerConsent('insuranceConsent', this.checked)" class="mt-0.5 w-4 h-4 accent-emerald-700" />
+                <span><strong>Insurance Data Share Consent (INS-02):</strong> If my loan is approved, share pledged collateral details with licensed Ethiopian insurers.</span>
+              </label>
+            </div>
+
+            <div class="flex justify-end">
+              <button onclick="setBorrowerStep(2)" class="px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold rounded-xl text-sm shadow-sm">
+                Next: Dynamic Document Checklist <i class="fa-solid fa-arrow-right ml-1.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-navy-900 text-white rounded-2xl p-5 shadow-sm h-fit space-y-4">
+            <div class="text-xs uppercase tracking-wider text-amber-400 font-bold">Auto-Classified Loan Structure</div>
+            <div class="text-lg font-extrabold">${tenorInfo.category}</div>
+            <div class="space-y-2 text-xs text-slate-300 border-t border-slate-800 pt-3">
+              <div class="flex justify-between"><span>Requested Amount:</span><span class="font-mono font-bold text-white">${formatETB(p.requestedAmount)}</span></div>
+              <div class="flex justify-between"><span>Max Principal Grace:</span><span class="font-mono font-bold text-amber-300">${tenorInfo.maxGrace} months</span></div>
+              <div class="flex justify-between"><span>Business Plan Required:</span><span class="font-bold text-white">${tenorInfo.needsPlan ? 'YES (PROD-01)' : 'No'}</span></div>
+            </div>
+            <div class="p-3 rounded-xl bg-amber-500/15 border border-amber-400/30 text-amber-100 text-xs">
+              <i class="fa-solid fa-circle-info text-amber-400 mr-1"></i>
+              Grace applies to <strong>principal only</strong>. There is no grace period for interest payments under the Ethiopian Commercial Banks Credit Procedure Baseline.
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderBorrowerStep2() {
+      const p = state.borrower.profile;
+      const docs = getDynamicChecklist(p);
+      const uploaded = docs.filter(d => state.borrower.docsChecked[d.id]).length;
+      const pct = Math.round((uploaded / docs.length) * 100);
+
+      return `
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 fade-in">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4 mb-5">
+            <div>
+              <h3 class="text-base font-bold text-slate-900"><i class="fa-solid fa-list-check text-emerald-700 mr-2"></i>Step 2: Dynamic Document Checklist</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Live rules for <strong>${p.legalForm}</strong> &bull; <strong>${formatETB(p.requestedAmount)}</strong> &bull; <strong>${p.tenorMonths} months</strong>.</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-40 bg-slate-100 rounded-full h-3 overflow-hidden">
+                <div class="bg-emerald-600 h-full transition-all duration-300" style="width:${pct}%"></div>
+              </div>
+              <span class="text-sm font-extrabold text-emerald-700">${pct}% Complete</span>
+            </div>
+          </div>
+
+          <div class="space-y-2.5">
+            ${docs.map(d => {
+              const checked = !!state.borrower.docsChecked[d.id];
+              return `
+                <label class="flex items-center justify-between gap-3 p-3.5 rounded-xl border transition-all cursor-pointer ${
+                  checked ? 'bg-emerald-50/70 border-emerald-200' : 'bg-white border-slate-200 hover:border-amber-400'
+                }">
+                  <div class="flex items-center gap-3">
+                    <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleBorrowerDoc('${d.id}', this.checked)" class="w-4 h-4 accent-emerald-700 rounded" />
+                    <div>
+                      <div class="text-sm font-semibold text-slate-800">${d.name}</div>
+                      <div class="text-[11px] text-slate-500">Baseline Rule: <span class="font-mono font-semibold text-emerald-700">${d.rule}</span></div>
+                    </div>
+                  </div>
+                  <span class="text-[11px] font-bold px-2.5 py-1 rounded-full shrink-0 ${checked ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+                    ${checked ? 'Uploaded' : 'Required'}
+                  </span>
+                </label>
+              `;
+            }).join('')}
+          </div>
+
+          <div class="flex justify-between mt-6">
+            <button onclick="setBorrowerStep(1)" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-50">
+              <i class="fa-solid fa-arrow-left mr-1.5"></i>Back
+            </button>
+            <button onclick="setBorrowerStep(3)" class="px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold rounded-xl text-sm shadow-sm">
+              Next: Indicative Asset Valuation <i class="fa-solid fa-arrow-right ml-1.5"></i>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderBorrowerStep3() {
+      const a = state.borrower.asset;
+      const val = computeBorrowerValuation(a);
+
+      return `
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 fade-in">
+          <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+              <h3 class="text-base font-bold text-slate-900">
+                <i class="fa-solid fa-truck-monster text-emerald-700 mr-2"></i>Step 3: Indicative Asset Valuation
+              </h3>
+              <span class="text-[11px] font-bold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full">INDICATIVE / ESTIMATED ONLY</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Asset Class</label>
+                <select onchange="updateBorrowerAsset('assetClass', this.value)" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white">
+                  <option value="MOTOR_VEHICLE" ${a.assetClass === 'MOTOR_VEHICLE' ? 'selected' : ''}>Motor Vehicle (Truck, Bus, Dump Truck)</option>
+                  <option value="CONSTRUCTION_MACHINERY" ${a.assetClass === 'CONSTRUCTION_MACHINERY' ? 'selected' : ''}>Construction Machinery (Excavator, Loader, Dozer)</option>
+                  <option value="MANUFACTURING" ${a.assetClass === 'MANUFACTURING' ? 'selected' : ''}>Manufacturing / Industrial Machinery</option>
+                  <option value="COMMERCIAL" ${a.assetClass === 'COMMERCIAL' ? 'selected' : ''}>Commercial Equipment (HVAC, Hotel, Lab)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Replacement Cost — RC (ETB)</label>
+                <input type="number" step="100000" value="${a.rcEtb}" oninput="updateBorrowerAsset('rcEtb', Number(this.value))"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-mono" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Service Year (n) — Enter &gt;15 to test HTTP 422 Guardrail</label>
+                <input type="number" min="0" max="40" value="${a.serviceYear}" oninput="updateBorrowerAsset('serviceYear', Number(this.value))"
+                  class="w-full px-3 py-2 rounded-xl border ${val.insufficientData ? 'border-red-500 bg-red-50' : 'border-slate-300'} text-sm font-mono" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Maker / Origin Region (MM Factor)</label>
+                <select onchange="updateBorrowerAsset('mmRegion', this.value)" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white">
+                  ${Object.entries(MM_FACTORS).map(([k, v]) => `<option value="${k}" ${a.mmRegion === k ? 'selected' : ''}>${v.label} (MM = ${v.value.toFixed(1)})</option>`).join('')}
+                </select>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-semibold text-slate-600 mb-1">
+                  Estimated Equipment Condition (EC: 0.10 – 1.00): <span class="font-mono text-emerald-700 font-bold">${Number(a.ecValue).toFixed(2)}</span>
+                </label>
+                <input type="range" min="0.10" max="1.00" step="0.02" value="${a.ecValue}" oninput="updateBorrowerAsset('ecValue', Number(this.value))"
+                  class="w-full accent-emerald-700" />
+                <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                  <span>0.10 (Major Missing)</span><span>0.55 (Medium Repair)</span><span>0.80 (Functional)</span><span>1.00 (New)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex justify-between pt-2">
+              <button onclick="setBorrowerStep(2)" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-50">
+                <i class="fa-solid fa-arrow-left mr-1.5"></i>Back
+              </button>
+              <button onclick="setBorrowerStep(4)" class="px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold rounded-xl text-sm shadow-sm">
+                Next: Financing Readiness Score <i class="fa-solid fa-arrow-right ml-1.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Separated Indicative Outputs -->
+          <div class="space-y-4">
+            ${val.insufficientData ? `
+              <div class="bg-red-50 border-2 border-red-400 rounded-2xl p-5 text-red-900">
+                <div class="flex items-center gap-2 font-extrabold text-sm mb-2">
+                  <i class="fa-solid fa-ban text-red-600 text-lg"></i>
+                  <span>HTTP 422 &bull; INSUFFICIENT_SOURCE_DATA</span>
+                </div>
+                <p class="text-xs leading-relaxed">
+                  Service Year <strong>${a.serviceYear}</strong> is outside the loaded lookup bounds (0–15 yrs) for <em>${val.tableLabel}</em>. Under Rule <strong>VAL-03</strong>, calculation is halted with zero silent fallback or generic IFRS substitution.
+                </p>
+              </div>
+            ` : `
+              <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-3">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                  <h4 class="text-sm font-bold text-slate-900">Indicative Outputs</h4>
+                  <span class="text-[10px] font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">INDICATIVE ONLY</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <div class="text-[11px] text-slate-500">1. Replacement Cost (RC)</div>
+                  <div class="text-base font-mono font-bold text-slate-900">${formatETB(val.rc)}</div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-navy-900 text-white">
+                  <div class="text-[11px] text-slate-300">2. Indicative Estimation Value (EV = RC &times; MM &times; Dr &times; EC)</div>
+                  <div class="text-xl font-mono font-extrabold text-amber-400 mt-0.5">${formatETB(val.ev)}</div>
+                  <div class="text-[10px] text-emerald-300 font-mono mt-1">
+                    MM ${val.mm.toFixed(2)} &times; Dr(${a.serviceYear}) ${val.dr.toFixed(4)} &times; EC ${val.ec.toFixed(2)}
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+                  <div class="text-[11px] text-amber-900 font-semibold">3. Applicable Collateral Safety Margin (MARG-03)</div>
+                  <div class="text-base font-mono font-bold text-amber-800">${val.safetyMarginPct}% <span class="text-[11px] font-sans font-normal">(≤10y: 50%, 11–15y: 75%, &gt;15y: 95%)</span></div>
+                </div>
+                <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200">
+                  <div class="text-[11px] text-emerald-900 font-semibold">4. Indicative Eligible Collateral Value</div>
+                  <div class="text-base font-mono font-extrabold text-emerald-800">${formatETB(val.eligibleCollateral)}</div>
+                </div>
+                <p class="text-[11px] text-slate-500 italic">
+                  Source: Ethiopian Commercial Banks Mechanical Equipment Valuation Standard (${state.activeMechVersion}). Not an official valuation.
+                </p>
+              </div>
+            `}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderBorrowerStep4() {
+      const r = computeReadinessScore();
+
+      return `
+        <div class="space-y-6 fade-in">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="bg-navy-900 text-white rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-2.5 py-1 rounded-full">Proprietary Preparation Score</span>
+                <div class="mt-4 flex items-baseline gap-2">
+                  <span class="text-5xl font-extrabold text-amber-400">${r.score}</span>
+                  <span class="text-lg text-slate-300">/ 100</span>
+                </div>
+                <p class="text-xs text-slate-300 mt-3 leading-relaxed">
+                  <strong>Regulatory Boundary:</strong> This is EthioFinConnect's proprietary <em>Financing Readiness Score</em>. It is <strong>not</strong> a regulated credit score and is strictly separate from any bank's official 8-grade Credit Risk Rating.
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-slate-800 text-xs flex justify-between text-slate-300">
+                <span>Documents: <strong class="text-white">${r.docPct}%</strong></span>
+                <span>Equity: <strong class="text-white">${state.borrower.profile.declaredEquityPct}%</strong></span>
+              </div>
+            </div>
+
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-700 mb-3"><i class="fa-solid fa-circle-check mr-1.5"></i>Strengths</h4>
+                <ul class="space-y-2 text-xs text-slate-700">
+                  ${r.strengths.map(s => `<li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-0.5"></i><span>${s}</span></li>`).join('')}
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-amber-600 mb-3"><i class="fa-solid fa-triangle-exclamation mr-1.5"></i>Weaknesses &amp; Recommended Actions</h4>
+                <ul class="space-y-2 text-xs text-slate-700">
+                  ${r.actions.length
+                    ? r.actions.map(a => `<li class="flex items-start gap-2"><i class="fa-solid fa-arrow-right text-amber-500 mt-0.5"></i><span>${a}</span></li>`).join('')
+                    : '<li class="text-emerald-700 font-semibold">All baseline preparation criteria met!</li>'}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-between">
+            <button onclick="setBorrowerStep(3)" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-50">
+              <i class="fa-solid fa-arrow-left mr-1.5"></i>Back to Valuation
+            </button>
+            <button onclick="setBorrowerStep(5)" class="px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold rounded-xl text-sm shadow-sm">
+              Next: Lender Matching Engine <i class="fa-solid fa-arrow-right ml-1.5"></i>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderBorrowerStep5() {
+      const p = state.borrower.profile;
+      const r = computeReadinessScore();
+      const val = computeBorrowerValuation(state.borrower.asset);
+      const strong = r.score >= 75 && !val.insufficientData && r.nonDebtOk;
+
+      const products = [
+        {
+          name: 'Ethiopian Commercial Banks — Commercial Vehicle & Machinery Term Loan',
+          lender: 'Participating Ethiopian Commercial Bank — Tier 1',
+          matchLabel: strong ? 'Strong Match (Based on Information Provided)' : 'Potentially Suitable — Action Required',
+          isStrong: strong,
+          note: 'Vehicle/Machinery Equity Matrix (VEH-02): 30% Equity / 70% Bank with Building ≥30% of loan vs. 50% / 50% Asset-Only.',
+          gap: r.actions.length ? r.actions[0] : 'All baseline criteria aligned for formal bank appraisal.'
+        },
+        {
+          name: 'Ethiopian Commercial Banks — SME Working Capital Facility',
+          lender: 'Participating Ethiopian Commercial Bank — Tier 1',
+          matchLabel: p.tenorMonths <= 12 ? 'Strong Match (Based on Information Provided)' : 'Potentially Suitable — Action Required',
+          isStrong: p.tenorMonths <= 12,
+          note: 'Short-term revolving/term working capital (≤12 months, max 6m principal grace, no interest grace).',
+          gap: p.tenorMonths > 12 ? 'Requested tenor exceeds 12-month short-term product cap.' : 'Tenor matches short-term working capital structure.'
+        },
+        {
+          name: 'Participating MFI — Growth Equipment Loan',
+          lender: 'Participating Ethiopian Microfinance Institution',
+          matchLabel: p.requestedAmount <= 5000000 ? 'Strong Match (Based on Information Provided)' : 'Potentially Suitable — Action Required',
+          isStrong: p.requestedAmount <= 5000000,
+          note: 'Tailored for growing Addis Ababa SMEs with streamlined provisional financial requirements below ETB 5M.',
+          gap: p.requestedAmount > 5000000 ? 'Requested amount exceeds standard MFI exposure tier; commercial bank recommended.' : 'Exposure fits MFI growth equipment band.'
+        }
+      ];
+
+      return `
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-5 fade-in">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
+            <div>
+              <h3 class="text-base font-bold text-slate-900"><i class="fa-solid fa-handshake text-emerald-700 mr-2"></i>Step 5: Rules-Based Lender Matching Engine</h3>
+              <p class="text-xs text-slate-500">Match labels are indicative only and never represent a promise or guarantee of loan approval.</p>
+            </div>
+            <span class="text-xs font-mono text-slate-500">Baseline: ${state.activeRuleVersion}</span>
+          </div>
+
+          <div class="space-y-4">
+            ${products.map((prod, idx) => `
+              <div class="p-5 rounded-2xl border ${idx === 0 ? 'border-emerald-300 bg-emerald-50/40' : 'border-slate-200 bg-slate-50/40'} flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div class="space-y-1.5">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h4 class="text-sm font-bold text-navy-900">${prod.name}</h4>
+                    <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full ${prod.isStrong ? 'bg-emerald-700 text-white' : 'bg-amber-100 text-amber-800 border border-amber-300'}">
+                      ${prod.matchLabel}
+                    </span>
+                  </div>
+                  <div class="text-xs text-slate-600 font-medium">${prod.lender}</div>
+                  <p class="text-xs text-slate-600">${prod.note}</p>
+                  <div class="text-[11px] text-slate-500"><strong class="text-slate-700">Gap / Fit Note:</strong> ${prod.gap}</div>
+                </div>
+                ${idx === 0 ? `
+                  <button onclick="submitBorrowerDossier('${prod.lender}')" class="shrink-0 px-5 py-3 bg-navy-900 hover:bg-emerald-800 text-white font-bold rounded-xl text-xs shadow-sm transition-all">
+                    <i class="fa-solid fa-paper-plane mr-1.5"></i>Submit Structured Dossier to Bank / MFI Officer Portal
+                  </button>
+                ` : `
+                  <button onclick="submitBorrowerDossier('${prod.lender}')" class="shrink-0 px-4 py-2.5 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-semibold rounded-xl text-xs">
+                    Submit Dossier
+                  </button>
+                `}
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="flex justify-start pt-2">
+            <button onclick="setBorrowerStep(4)" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-50">
+              <i class="fa-solid fa-arrow-left mr-1.5"></i>Back to Readiness Score
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // -------------------------------------------------------------------------
+    // PORTAL 2: BANK / MFI OFFICER PORTAL (INSTITUTIONAL TERMINOLOGY)
+    // -------------------------------------------------------------------------
+    function renderBankPortal() {
+      const sub = state.bank.subTab;
+      return `
+        <div class="space-y-6 fade-in">
+          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Portal 2 &bull; Participating Ethiopian Commercial Bank — Tier 1</span>
+              <h2 class="text-lg font-bold text-slate-900">Credit Appraisal, LAF Governance &amp; Maker/Checker Valuation Workbench</h2>
+            </div>
+            <div class="flex gap-2 bg-slate-100 p-1 rounded-xl">
+              <button onclick="setBankSubTab('appraisal')" class="px-4 py-2 rounded-lg text-xs font-bold transition-all ${sub === 'appraisal' ? 'bg-navy-900 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'}">
+                <i class="fa-solid fa-file-signature mr-1.5"></i>A. Credit Appraisal &amp; LAF Decision
+              </button>
+              <button onclick="setBankSubTab('valuation')" class="px-4 py-2 rounded-lg text-xs font-bold transition-all ${sub === 'valuation' ? 'bg-navy-900 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'}">
+                <i class="fa-solid fa-gears mr-1.5"></i>B. Maker / Checker Valuation Workbench
+              </button>
+            </div>
+          </div>
+
+          ${sub === 'appraisal' ? renderBankAppraisalTab() : renderBankValuationWorkbench()}
+        </div>
+      `;
+    }
+
+    function renderBankAppraisalTab() {
+      const app = state.applications.find(a => a.id === state.bank.selectedAppId) || state.applications[0];
+      const gradeInfo = computeBankGrade(app.rating);
+
+      const crbDays = Math.round((new Date('2026-11-18') - new Date(app.crbDate)) / (1000 * 60 * 60 * 24));
+      const crbValid = crbDays <= 90;
+
+      return `
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 fade-in">
+          <!-- Incoming Dossier Queue -->
+          <div class="lg:col-span-4 space-y-3">
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-500 px-1">Incoming Borrower Dossiers (${state.applications.length})</div>
+            ${state.applications.map(a => `
+              <button onclick="selectBankApp('${a.id}')" class="w-full text-left p-4 rounded-2xl border transition-all ${
+                a.id === app.id ? 'bg-navy-900 text-white border-navy-900 shadow-md' : 'bg-white text-slate-800 border-slate-200 hover:border-emerald-600'
+              }">
+                <div class="flex items-center justify-between gap-2 mb-1">
+                  <span class="font-mono text-xs font-bold ${a.id === app.id ? 'text-amber-400' : 'text-emerald-700'}">${a.id}</span>
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                    a.status === 'APPROVED' || a.status === 'DISBURSEMENT_CLEARED' ? 'bg-emerald-500 text-navy-950' :
+                    a.status === 'DECLINED' ? 'bg-red-500 text-white' : 'bg-amber-400 text-navy-950'
+                  }">${a.status}</span>
+                </div>
+                <div class="font-bold text-sm truncate">${a.businessName}</div>
+                <div class="text-xs ${a.id === app.id ? 'text-slate-300' : 'text-slate-500'} mt-1">
+                  ${formatETB(a.requestedAmount)} &bull; ${a.tenorMonths}m &bull; Readiness: ${a.readinessScore}/100
+                </div>
+              </button>
+            `).join('')}
+          </div>
+
+          <!-- Appraisal Detail Panel -->
+          <div class="lg:col-span-8 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-6">
+            <div class="flex flex-wrap items-start justify-between gap-3 border-b border-slate-100 pb-4">
+              <div>
+                <div class="text-xs font-mono text-slate-500">Pinned Baseline: <strong class="text-emerald-700">${app.pinnedRuleVersion}</strong> &bull; Submitted: ${app.submittedAt}</div>
+                <h3 class="text-lg font-bold text-slate-900 mt-0.5">${app.businessName}</h3>
+                <p class="text-xs text-slate-600">Applicant: ${app.applicantName} (${app.legalForm}) &bull; Collateral: ${app.assetSummary}</p>
+              </div>
+              <div class="text-right">
+                <div class="text-[11px] text-slate-500">CRB Inquiry Date: <span class="font-mono">${app.crbDate}</span></div>
+                <span class="inline-flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full mt-1 ${crbValid ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700'}">
+                  <i class="fa-solid ${crbValid ? 'fa-clock-rotate-left' : 'fa-triangle-exclamation'}"></i>
+                  ${crbValid ? `CRB Valid (${crbDays}d / 90d Window)` : 'CRB EXPIRED (>3 Months)'}
+                </span>
+              </div>
+            </div>
+
+            <!-- "Original Seen" / REJECTED Document Verification -->
+            <div>
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-3">
+                <i class="fa-solid fa-stamp text-emerald-700 mr-1.5"></i>Document Authenticity Gate ("Original Seen" vs. Rejected)
+              </h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                ${Object.entries(app.docVerifications).map(([k, status]) => `
+                  <div class="flex items-center justify-between p-2.5 rounded-xl border text-xs ${
+                    status === 'ORIGINAL_SEEN' ? 'bg-emerald-50 border-emerald-200' :
+                    status === 'REJECTED' ? 'bg-red-50 border-red-200' : 'bg-slate-50 border-slate-200'
+                  }">
+                    <span class="font-semibold capitalize text-slate-700">${k.replace(/_/g, ' ')}</span>
+                    <select onchange="setDocVerification('${app.id}', '${k}', this.value)"
+                      class="px-2 py-1 rounded-lg text-[11px] font-bold border bg-white">
+                      <option value="PENDING" ${status === 'PENDING' ? 'selected' : ''}>PENDING</option>
+                      <option value="ORIGINAL_SEEN" ${status === 'ORIGINAL_SEEN' ? 'selected' : ''}>ORIGINAL_SEEN</option>
+                      <option value="REJECTED" ${status === 'REJECTED' ? 'selected' : ''}>REJECTED</option>
+                    </select>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- 8-Grade Indicative Credit Risk Rating Calculator -->
+            <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-navy-900">8-Grade Indicative Credit Risk Rating Calculator (RATE-01)</h4>
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-white border border-slate-200">Total: ${gradeInfo.total} / 100</span>
+                  <span class="text-xs font-bold px-3 py-1 rounded-full ${gradeInfo.bankable ? 'bg-emerald-700 text-white' : 'bg-red-600 text-white'}">
+                    Grade ${gradeInfo.grade} &mdash; ${gradeInfo.bankable ? 'BANKABLE (1–5)' : 'NOT BANKABLE (6–8)'}
+                  </span>
+                  ${gradeInfo.actionPlanMandatory ? `<span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300">MANDATORY ACTION PLAN (Grades 4–8)</span>` : ''}
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+                ${[
+                  { key: 'financial', label: 'Financial (35%)', max: 35 },
+                  { key: 'business', label: 'Business (10%)', max: 10 },
+                  { key: 'management', label: 'Mgmt (15%)', max: 15 },
+                  { key: 'account', label: 'Account (25%)', max: 25 },
+                  { key: 'relationship', label: 'Relation (15%)', max: 15 }
+                ].map(item => `
+                  <div class="bg-white p-2.5 rounded-xl border border-slate-200">
+                    <label class="block text-[11px] font-semibold text-slate-600 mb-1">${item.label}</label>
+                    <input type="number" min="0" max="${item.max}" value="${app.rating[item.key]}"
+                      oninput="updateBankRating('${app.id}', '${item.key}', Math.min(${item.max}, Math.max(0, Number(this.value))))"
+                      class="w-full px-2 py-1 rounded-lg border border-slate-300 text-sm font-mono font-bold text-navy-900" />
+                  </div>
+                `).join('')}
+              </div>
+
+              <!-- CCR 75% Rule & Audit Discrepancy Controls -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-200 text-xs">
+                <label class="flex items-center gap-2 font-semibold text-slate-700 cursor-pointer">
+                  <input type="checkbox" ${app.rating.isRecentCCR ? 'checked' : ''} onchange="updateBankRatingFlag('${app.id}', 'isRecentCCR', this.checked)" class="w-4 h-4 accent-emerald-700" />
+                  Recent Statement is CCR (Apply 75% Financial Score Rule &rarr; ${gradeInfo.effectiveFin.toFixed(2)} pts)
+                </label>
+                <div class="flex items-center gap-2">
+                  <span class="font-semibold text-slate-600">Statement Discrepancy:</span>
+                  <select onchange="updateBankRatingFlag('${app.id}', 'discrepancy', this.value)" class="px-2.5 py-1 rounded-lg border border-slate-300 bg-white font-semibold">
+                    <option value="NONE" ${app.rating.discrepancy === 'NONE' ? 'selected' : ''}>None (0)</option>
+                    <option value="MINOR" ${app.rating.discrepancy === 'MINOR' ? 'selected' : ''}>Minor Discrepancy (-2)</option>
+                    <option value="MAJOR" ${app.rating.discrepancy === 'MAJOR' ? 'selected' : ''}>Major Discrepancy (-5)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- LAF Governance Controls -->
+            <div class="bg-emerald-50/50 rounded-2xl p-5 border border-emerald-200 space-y-4">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-navy-900">
+                <i class="fa-solid fa-gavel text-emerald-700 mr-1.5"></i>Loan Approval Form (LAF) Governance &amp; Decision
+              </h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-600 mb-1">LAF Reference Number</label>
+                  <input type="text" value="${app.lafNumber}" oninput="updateAppField('${app.id}', 'lafNumber', this.value)"
+                    class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-mono bg-white" />
+                </div>
+                <label class="flex items-center gap-2.5 text-xs font-bold text-slate-800 cursor-pointer pt-4">
+                  <input type="checkbox" ${app.committeeSigned ? 'checked' : ''} onchange="updateAppField('${app.id}', 'committeeSigned', this.checked)" class="w-4 h-4 accent-emerald-700" />
+                  &ge; 2/3 Approving Committee Signatures Verified on LAF
+                </label>
+              </div>
+              <div class="flex flex-wrap items-center justify-end gap-3 pt-2">
+                <button onclick="decideApplication('${app.id}', 'DECLINED')" class="px-4 py-2.5 rounded-xl border border-red-300 bg-red-50 hover:bg-red-100 text-red-700 text-xs font-bold">
+                  <i class="fa-solid fa-xmark mr-1"></i>Decline Loan
+                </button>
+                <button onclick="decideApplication('${app.id}', 'APPROVED')" class="px-5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-sm">
+                  <i class="fa-solid fa-check-double mr-1.5"></i>Approve Loan (Unlock Insurance Marketplace)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderBankValuationWorkbench() {
+      const w = state.bank.workbench;
+      const isLocked = ['MAKER_SUBMITTED', 'CHECKER_REVIEW', 'APPROVED'].includes(w.state);
+      const calc = computeWorkbenchValuation(w);
+
+      return `
+        <div class="space-y-5 fade-in">
+          <!-- State Machine & Role Switcher Bar -->
+          <div class="bg-navy-900 text-white rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <span class="font-mono text-xs bg-navy-800 px-2.5 py-1 rounded-lg border border-slate-700">${w.caseId}</span>
+              <span class="text-sm font-bold">${w.assetTitle}</span>
+              <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full ${
+                w.state === 'APPROVED' ? 'bg-emerald-400 text-navy-950' :
+                w.state === 'RETURNED_FOR_CORRECTION' ? 'bg-red-400 text-white' :
+                w.state === 'EXCEPTION_ESCALATED' ? 'bg-purple-400 text-white' :
+                'bg-amber-400 text-navy-950'
+              }">${w.state}</span>
+              <span class="text-xs font-mono text-slate-300">Pinned: ${w.pinnedRuleVersion}</span>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="loadRegressionTest()" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-navy-950 text-xs font-bold">
+                <i class="fa-solid fa-flask mr-1"></i>Load 1995 Italian Production Machine Regression Test
+              </button>
+              <div class="flex bg-navy-950 p-1 rounded-lg text-xs border border-slate-800">
+                <button onclick="setWorkbenchRole('MAKER')" class="px-3 py-1 rounded-md font-bold ${w.role === 'MAKER' ? 'bg-emerald-500 text-navy-950' : 'text-slate-300'}">Maker</button>
+                <button onclick="setWorkbenchRole('CHECKER')" class="px-3 py-1 rounded-md font-bold ${w.role === 'CHECKER' ? 'bg-emerald-500 text-navy-950' : 'text-slate-300'}">Checker</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- VAL-06 Partial Factory Block Alert -->
+          ${w.isPartialFactory ? `
+            <div class="bg-red-50 border-2 border-red-400 rounded-2xl p-4 text-xs text-red-900 flex items-center gap-3">
+              <i class="fa-solid fa-ban text-red-600 text-xl"></i>
+              <div>
+                <strong>COMPLIANCE BLOCK (Rule VAL-06):</strong> Partial mechanical-equipment estimation for industrial manufacturing plants is strictly prohibited. The entire factory must be estimated per Work Permit, Trade License, and LHC.
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left: Verification Gate & RC = MC + DC + UC Builder -->
+            <div class="lg:col-span-6 space-y-5">
+              <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800">Pre-Calculation Document &amp; Identity Verification Gate</h4>
+                ${w.gateChecks.map(g => `
+                  <div class="flex items-center justify-between text-xs p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                    <span class="text-slate-700 font-medium">${g.label}</span>
+                    <select ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} onchange="updateGateCheck('${g.id}', this.value)"
+                      class="px-2 py-1 rounded-lg font-bold text-[11px] border ${g.status === 'PASS' ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-red-100 text-red-700 border-red-300'}">
+                      <option value="PASS" ${g.status === 'PASS' ? 'selected' : ''}>PASS</option>
+                      <option value="FAIL" ${g.status === 'FAIL' ? 'selected' : ''}>FAIL</option>
+                      <option value="EXCEPTION" ${g.status === 'EXCEPTION' ? 'selected' : ''}>EXCEPTION</option>
+                    </select>
+                  </div>
+                `).join('')}
+              </div>
+
+              <!-- RC = MC + DC + UC Builder -->
+              <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
+                <div class="flex items-center justify-between">
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800">Replacement Cost Builder (RC = MC + DC + UC)</h4>
+                  <label class="flex items-center gap-1.5 text-xs font-semibold text-red-700 cursor-pointer">
+                    <input type="checkbox" ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} ${w.isPartialFactory ? 'checked' : ''} onchange="updateWorkbench('isPartialFactory', this.checked)" class="accent-red-600" />
+                    Partial Factory Estimation Request (VAL-06)
+                  </label>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                  <div>
+                    <label class="block font-semibold text-slate-600 mb-1">Manufacturing Cost (MC)</label>
+                    <input type="number" ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} value="${w.mc}" oninput="updateWorkbench('mc', Number(this.value))" class="w-full px-2.5 py-2 rounded-xl border border-slate-300 font-mono" />
+                  </div>
+                  <div>
+                    <label class="block font-semibold text-slate-600 mb-1">Dealer Cost (DC)</label>
+                    <input type="number" ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} value="${w.dc}" oninput="updateWorkbench('dc', Number(this.value))" class="w-full px-2.5 py-2 rounded-xl border border-slate-300 font-mono" />
+                  </div>
+                  <div>
+                    <label class="block font-semibold text-slate-600 mb-1">User Cost (UC)</label>
+                    <input type="number" ${isLocked || w.role === 'CHECKER' || w.use75CifAllowance ? 'disabled' : ''} value="${w.use75CifAllowance ? calc.uc.toFixed(0) : w.uc}" oninput="updateWorkbench('uc', Number(this.value))" class="w-full px-2.5 py-2 rounded-xl border border-slate-300 font-mono ${w.use75CifAllowance ? 'bg-slate-100 text-slate-500' : ''}" />
+                  </div>
+                  <div>
+                    <label class="block font-semibold text-slate-600 mb-1">Valuation-Date FX Rate (ETB)</label>
+                    <input type="number" step="0.5" ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} value="${w.fxRate}" oninput="updateWorkbench('fxRate', Number(this.value))" class="w-full px-2.5 py-2 rounded-xl border border-slate-300 font-mono" />
+                  </div>
+                  <div>
+                    <label class="block font-semibold text-slate-600 mb-1">Duty Status</label>
+                    <select ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} onchange="updateWorkbench('dutyStatus', this.value)" class="w-full px-2.5 py-2 rounded-xl border border-slate-300 bg-white">
+                      <option value="PAID" ${w.dutyStatus === 'PAID' ? 'selected' : ''}>Duty Paid</option>
+                      <option value="DUTY_FREE" ${w.dutyStatus === 'DUTY_FREE' ? 'selected' : ''}>Duty Free</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block font-semibold text-slate-600 mb-1">CIF Value (For 7.5% UC Allowance)</label>
+                    <input type="number" ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} value="${w.cifValue}" oninput="updateWorkbench('cifValue', Number(this.value))" class="w-full px-2.5 py-2 rounded-xl border border-slate-300 font-mono" />
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 text-xs bg-slate-50 p-3 rounded-xl border border-slate-200">
+                  <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} ${w.use75CifAllowance ? 'checked' : ''} onchange="updateWorkbench('use75CifAllowance', this.checked)" class="accent-emerald-700" />
+                    Use 7.5% CIF User-Cost Allowance
+                  </label>
+                  <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} ${w.dutyFreeEntitlement ? 'checked' : ''} onchange="updateWorkbench('dutyFreeEntitlement', this.checked)" class="accent-emerald-700" />
+                    Has Duty-Free Entitlement (Estimate as Duty-Free)
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Empirical Formula, Foreclosure Toggle & Maker/Checker Actions -->
+            <div class="lg:col-span-6 space-y-5">
+              <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800">Empirical Formula: EV = RC &times; MM &times; Dr(n) &times; EC</h4>
+
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                  <div>
+                    <label class="block font-semibold text-slate-600 mb-1">Asset Class</label>
+                    <select ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} onchange="updateWorkbench('assetClass', this.value)" class="w-full px-2.5 py-2 rounded-xl border border-slate-300 bg-white">
+                      <option value="MOTOR_VEHICLE" ${w.assetClass === 'MOTOR_VEHICLE' ? 'selected' : ''}>Motor Vehicle</option>
+                      <option value="MANUFACTURING" ${w.assetClass === 'MANUFACTURING' ? 'selected' : ''}>Manufacturing Machinery</option>
+                      <option value="CONSTRUCTION_MACHINERY" ${w.assetClass === 'CONSTRUCTION_MACHINERY' ? 'selected' : ''}>Construction Machinery</option>
+                      <option value="COMMERCIAL" ${w.assetClass === 'COMMERCIAL' ? 'selected' : ''}>Commercial Equipment</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block font-semibold text-slate-600 mb-1">Maker / Region (MM)</label>
+                    <select ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} onchange="updateWorkbench('mmRegion', this.value)" class="w-full px-2.5 py-2 rounded-xl border border-slate-300 bg-white">
+                      ${Object.entries(MM_FACTORS).map(([k, v]) => `<option value="${k}" ${w.mmRegion === k ? 'selected' : ''}>${v.label} (${v.value.toFixed(1)})</option>`).join('')}
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block font-semibold text-slate-600 mb-1">Service Year (n)</label>
+                    <input type="number" min="0" max="20" ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} value="${w.serviceYear}" oninput="updateWorkbench('serviceYear', Number(this.value))" class="w-full px-2.5 py-2 rounded-xl border border-slate-300 font-mono" />
+                  </div>
+                  <div>
+                    <label class="block font-semibold text-slate-600 mb-1">Equipment Condition (EC: 0.10–1.00)</label>
+                    <input type="number" step="0.01" min="0.10" max="1.00" ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} value="${w.ecValue}" oninput="updateWorkbench('ecValue', Number(this.value))" class="w-full px-2.5 py-2 rounded-xl border border-slate-300 font-mono" />
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-600 mb-1">Mandatory EC Inspection Justification</label>
+                  <textarea rows="2" ${isLocked || w.role === 'CHECKER' ? 'disabled' : ''} oninput="updateWorkbench('ecJustification', this.value)"
+                    class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs ${isLocked ? 'bg-slate-100' : ''}">${w.ecJustification}</textarea>
+                </div>
+
+                <!-- Empirical Output Summary -->
+                <div class="p-4 rounded-xl bg-navy-900 text-white space-y-2">
+                  <div class="flex justify-between text-xs text-slate-300">
+                    <span>RC (ETB): <strong class="font-mono text-white">${formatETB(calc.rcEtb)}</strong></span>
+                    <span class="font-mono text-emerald-300">MM ${calc.mm.toFixed(2)} &times; Dr ${calc.dr !== null ? calc.dr.toFixed(4) : 'ERR'} &times; EC ${calc.ec.toFixed(2)}</span>
+                  </div>
+                  <div class="flex items-baseline justify-between border-t border-slate-800 pt-2">
+                    <span class="text-xs font-bold uppercase text-amber-300">Estimation Value (EV)</span>
+                    <span class="text-2xl font-mono font-extrabold text-amber-400">${calc.insufficientData ? 'INSUFFICIENT_SOURCE_DATA' : formatETB(calc.evEtb)}</span>
+                  </div>
+                  <div class="flex justify-between text-[11px] text-slate-300">
+                    <span>Separate Safety Margin: <strong>${calc.safetyMarginPct}%</strong></span>
+                    <span>Multiplier: <strong class="font-mono">${calc.dr !== null ? (calc.mm * calc.dr * calc.ec).toFixed(4) : 'N/A'}</strong></span>
+                  </div>
+                </div>
+
+                <!-- Foreclosure / Auction Mode Toggle (VAL-07) -->
+                <div class="p-3.5 rounded-xl border ${w.foreclosureMode ? 'bg-amber-50 border-amber-300' : 'bg-slate-50 border-slate-200'}">
+                  <div class="flex items-center justify-between">
+                    <label class="flex items-center gap-2 text-xs font-bold text-slate-800 cursor-pointer">
+                      <input type="checkbox" ${w.foreclosureMode ? 'checked' : ''} onchange="updateWorkbench('foreclosureMode', this.checked)" class="w-4 h-4 accent-amber-600" />
+                      Foreclosure / Auction Workflow Mode (AP = EV &times; APSF)
+                    </label>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${w.foreclosureMode ? 'bg-amber-600 text-white' : 'bg-slate-200 text-slate-600'}">
+                      ${w.foreclosureMode ? 'ACTIVE' : 'DISABLED BY DEFAULT'}
+                    </span>
+                  </div>
+                  ${w.foreclosureMode ? `
+                    <div class="mt-3 pt-3 border-t border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div class="flex items-center gap-2 text-xs">
+                        <label class="font-semibold text-amber-900">Credit Facility %:</label>
+                        <select onchange="updateWorkbench('creditFacilityPct', Number(this.value))" class="px-2 py-1 rounded-lg border border-amber-300 bg-white font-mono">
+                          ${Object.entries(APSF_TABLE).map(([pct, f]) => `<option value="${pct}" ${w.creditFacilityPct === Number(pct) ? 'selected' : ''}>${pct}% (APSF ${f.toFixed(2)})</option>`).join('')}
+                        </select>
+                      </div>
+                      <div class="text-right">
+                        <div class="text-[10px] text-amber-800 font-semibold">Auction Floor Price (AP)</div>
+                        <div class="text-base font-mono font-extrabold text-amber-900">${formatETB(calc.auctionPrice)}</div>
+                      </div>
+                    </div>
+                  ` : ''}
+                </div>
+
+                <!-- Maker / Checker Action Buttons -->
+                <div class="pt-2 border-t border-slate-100">
+                  ${w.role === 'MAKER' ? `
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="text-xs text-slate-500">Maker locks inputs &amp; version for independent Checker review.</span>
+                      <button onclick="makerSubmitValuation()" ${isLocked ? 'disabled' : ''}
+                        class="px-4 py-2.5 rounded-xl text-xs font-bold ${isLocked ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-emerald-700 hover:bg-emerald-800 text-white shadow-sm'}">
+                        <i class="fa-solid fa-lock mr-1.5"></i>Submit &amp; Lock Valuation
+                      </button>
+                    </div>
+                  ` : `
+                    <div class="space-y-2">
+                      <div class="text-xs font-bold text-slate-700">Checker Controls (Maker &ne; Checker Enforced):</div>
+                      <div class="flex flex-wrap gap-2">
+                        <button onclick="checkerAction('APPROVED')" ${w.state !== 'MAKER_SUBMITTED' ? 'disabled' : ''}
+                          class="px-3.5 py-2 rounded-xl text-xs font-bold ${w.state !== 'MAKER_SUBMITTED' ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-emerald-700 hover:bg-emerald-800 text-white'}">
+                          <i class="fa-solid fa-check mr-1"></i>Approve &amp; Lock
+                        </button>
+                        <button onclick="checkerAction('RETURNED_FOR_CORRECTION')" ${w.state !== 'MAKER_SUBMITTED' ? 'disabled' : ''}
+                          class="px-3.5 py-2 rounded-xl text-xs font-bold ${w.state !== 'MAKER_SUBMITTED' ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-amber-500 hover:bg-amber-600 text-navy-950'}">
+                          <i class="fa-solid fa-rotate-left mr-1"></i>Return to Maker
+                        </button>
+                        <button onclick="checkerAction('EXCEPTION_ESCALATED')" ${w.state !== 'MAKER_SUBMITTED' ? 'disabled' : ''}
+                          class="px-3.5 py-2 rounded-xl text-xs font-bold ${w.state !== 'MAKER_SUBMITTED' ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-purple-700 hover:bg-purple-800 text-white'}">
+                          <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>Escalate to Division Manager
+                        </button>
+                      </div>
+                    </div>
+                  `}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // -------------------------------------------------------------------------
+    // PORTAL 3: COLLATERAL INSURANCE MARKETPLACE (POST-APPROVAL HARD GATE)
+    // -------------------------------------------------------------------------
+    function renderInsurancePortal() {
+      const eligibleApps = state.applications.filter(a => (a.status === 'APPROVED' || a.status === 'DISBURSEMENT_CLEARED') && a.insuranceConsent);
+
+      if (eligibleApps.length === 0) {
+        return `
+          <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-8 text-center my-8 fade-in">
+            <div class="w-16 h-16 rounded-2xl bg-slate-100 text-slate-500 flex items-center justify-center mx-auto mb-4 text-3xl">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <span class="text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-800 px-3 py-1 rounded-full">LOCKED &bull; Post-Approval Compliance Gate (INS-02)</span>
+            <h2 class="text-xl font-bold text-slate-900 mt-3">Collateral Insurance Marketplace is Locked</h2>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+              Activates strictly after <code>ApplicationStatus = APPROVED</code> and active Borrower <code>INSURANCE_DATA_SHARE</code> consent. Approve a secured loan in Portal 2 to unlock insurer quotes and pre-disbursement policy verification.
+            </p>
+            <div class="mt-6">
+              <button onclick="switchPortal('bank')" class="px-5 py-2.5 bg-navy-900 hover:bg-emerald-800 text-white font-bold rounded-xl text-sm shadow-sm">
+                <i class="fa-solid fa-building-columns mr-2"></i>Go to Bank / MFI Officer Portal
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      const app = eligibleApps.find(a => a.id === state.insurance.selectedAppId) || eligibleApps[0];
+      const pol = state.insurance.policy;
+      if (!pol.insuredValue) pol.insuredValue = app.indicativeEV;
+
+      return `
+        <div class="space-y-6 fade-in">
+          <!-- Approved Loan Summary -->
+          <div class="bg-navy-900 text-white rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+            <div>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full ${app.status === 'DISBURSEMENT_CLEARED' ? 'bg-emerald-400 text-navy-950' : 'bg-amber-400 text-navy-950'}">
+                  ${app.status}
+                </span>
+                <span class="text-xs font-mono text-slate-300">${app.id} &bull; ${app.lafNumber}</span>
+              </div>
+              <h2 class="text-lg font-bold mt-1">${app.businessName} &mdash; ${app.assetSummary}</h2>
+              <p class="text-xs text-emerald-300 mt-1">
+                <strong>100% Insurance Coverage Requirement (INS-01):</strong> Sum Insured ${formatETB(app.indicativeEV)}.
+                <span class="text-slate-300 block sm:inline"> (For buildings, excludes location value, consultancy fee, fence, and compound.)</span>
+              </p>
+            </div>
+            <div class="text-xs bg-navy-950 border border-slate-700 px-3.5 py-2.5 rounded-xl max-w-xs">
+              <div class="text-amber-400 font-bold">Underwriting Boundary</div>
+              <div class="text-slate-300 mt-0.5">Licensed Ethiopian insurers underwrite policies and set premiums. EthioFinConnect facilitates quotes &amp; verification only.</div>
+            </div>
+          </div>
+
+          <!-- Licensed Insurers Quote Table -->
+          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
+              <i class="fa-solid fa-file-invoice-dollar text-emerald-700 mr-2"></i>1. Participating Licensed Ethiopian Insurers — Quote Comparison
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              ${state.insurance.quotes.map(q => {
+                const prem = app.indicativeEV * (q.ratePct / 100);
+                const selected = state.insurance.selectedQuoteId === q.id;
+                return `
+                  <div class="p-4 rounded-2xl border-2 flex flex-col justify-between transition-all ${selected ? 'border-emerald-600 bg-emerald-50/40' : 'border-slate-200 bg-white'}">
+                    <div>
+                      <div class="flex items-center justify-between gap-2 mb-2">
+                        <span class="text-xs font-bold text-navy-900">${q.insurer}</span>
+                        ${selected ? '<span class="text-[10px] font-bold bg-emerald-700 text-white px-2 py-0.5 rounded-full">SELECTED</span>' : ''}
+                      </div>
+                      <div class="text-xl font-mono font-extrabold text-slate-900">${formatETB(prem)}</div>
+                      <div class="text-[11px] text-slate-500 mt-0.5">Insurer Rate: ${q.ratePct}% &bull; Valid: ${q.validity}</div>
+                      <p class="text-xs text-slate-600 mt-2">${q.scope}</p>
+                    </div>
+                    <button onclick="selectInsuranceQuote('${q.id}', '${q.insurer}')" class="mt-4 w-full py-2 rounded-xl text-xs font-bold ${selected ? 'bg-emerald-700 text-white' : 'bg-slate-100 hover:bg-navy-900 hover:text-white text-slate-800'} transition-all">
+                      ${selected ? 'Quote Selected' : 'Select Quote'}
+                    </button>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Policy Issuance & Verification Form -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4">
+              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-2.5">
+                <i class="fa-solid fa-certificate text-emerald-700 mr-2"></i>2. Policy Issuance &amp; Pre-Disbursement Verification
+              </h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-1">Policy Number</label>
+                  <input type="text" placeholder="e.g., POL-ETH-2026-8841" value="${pol.policyNumber}" oninput="updatePolicy('policyNumber', this.value)"
+                    class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-sm" />
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-1">Insured Value (ETB)</label>
+                  <input type="number" value="${pol.insuredValue}" oninput="updatePolicy('insuredValue', Number(this.value))"
+                    class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-sm" />
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-1">Effective Date</label>
+                  <input type="date" value="${pol.effectiveDate}" oninput="updatePolicy('effectiveDate', this.value)"
+                    class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm" />
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-1">Expiry Date</label>
+                  <input type="date" value="${pol.expiryDate}" oninput="updatePolicy('expiryDate', this.value)"
+                    class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm" />
+                </div>
+              </div>
+
+              <label class="flex items-center gap-2.5 text-xs font-bold text-slate-800 cursor-pointer pt-1">
+                <input type="checkbox" ${pol.lossPayeeConfirmed ? 'checked' : ''} onchange="updatePolicy('lossPayeeConfirmed', this.checked)" class="w-4 h-4 accent-emerald-700" />
+                Lender Interest / Loss-Payee Clause Verified on Issued Policy Schedule
+              </label>
+
+              <div class="flex justify-end pt-3 border-t border-slate-100">
+                <button onclick="confirmPolicyForDisbursement('${app.id}')" class="px-5 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-sm">
+                  <i class="fa-solid fa-check-double mr-1.5"></i>Confirm Policy &amp; Clear for Disbursement
+                </button>
+              </div>
+            </div>
+
+            <!-- Renewal Monitoring Alert Box -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-3 h-fit">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-100 pb-2">
+                <i class="fa-solid fa-bell text-amber-500 mr-1.5"></i>Automated Renewal Monitoring
+              </h4>
+              <div class="p-4 rounded-xl text-xs space-y-1.5 ${pol.confirmedForDisbursement ? 'bg-emerald-50 border border-emerald-300 text-emerald-900' : 'bg-slate-50 border border-slate-200 text-slate-600'}">
+                <div class="font-extrabold">Status: ${pol.confirmedForDisbursement ? 'DISBURSEMENT_CLEARED' : 'PENDING POLICY VERIFICATION'}</div>
+                <div>Policy No: <span class="font-mono font-bold">${pol.policyNumber || 'Not Recorded'}</span></div>
+                <div>Renewal Alert: <strong>${pol.confirmedForDisbursement ? 'ACTIVE (30d before ' + pol.expiryDate + ')' : 'Standby'}</strong></div>
+              </div>
+              <p class="text-[11px] text-slate-500">
+                Automated expiry and renewal notifications alert both the borrower and the participating bank prior to coverage lapse.
+              </p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // -------------------------------------------------------------------------
+    // PORTAL 4: ADMIN & RULES CONSOLE + IMMUTABLE AUDIT LOG
+    // -------------------------------------------------------------------------
+    function renderAdminPortal() {
+      return `
+        <div class="space-y-6 fade-in">
+          <!-- Rule Version Publisher -->
+          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Portal 4 &bull; Governance &amp; Version Control</span>
+              <h2 class="text-lg font-bold text-slate-900">Ethiopian Commercial Banks Source Rule Matrix &amp; Immutable Audit Log</h2>
+              <p class="text-xs text-slate-500 mt-0.5">Publishing a new version updates future evaluations without altering historical pinned valuation or appraisal records.</p>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <div class="text-right">
+                <div class="text-[10px] uppercase font-bold text-slate-500">Active Baseline</div>
+                <div class="text-sm font-mono font-extrabold text-navy-900">${state.activeRuleVersion}</div>
+              </div>
+              <button onclick="publishNewRuleVersion()" class="px-4 py-2.5 bg-navy-900 hover:bg-emerald-800 text-white font-bold rounded-xl text-xs shadow-sm">
+                <i class="fa-solid fa-code-branch mr-1.5"></i>Publish New Rule Version
+              </button>
+            </div>
+          </div>
+
+          <!-- Source Rule Matrix Table -->
+          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800">Source Rule Matrix (${SOURCE_RULES_MATRIX.length} Traceable Rules)</h3>
+              <span class="text-[11px] text-slate-500">Version-controlled &bull; Zero untraceable hard-coded constants</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50 text-slate-600 uppercase text-[10px] border-b border-slate-200">
+                  <tr>
+                    <th class="px-4 py-3">Rule ID</th>
+                    <th class="px-4 py-3">Rule Name</th>
+                    <th class="px-4 py-3">Condition / Formula</th>
+                    <th class="px-4 py-3">Source Document</th>
+                    <th class="px-4 py-3">Effective Date</th>
+                    <th class="px-4 py-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  ${SOURCE_RULES_MATRIX.map(r => `
+                    <tr class="hover:bg-slate-50/70">
+                      <td class="px-4 py-3 font-mono font-bold text-emerald-700 whitespace-nowrap">${r.id}</td>
+                      <td class="px-4 py-3 font-semibold text-slate-800">${r.name}</td>
+                      <td class="px-4 py-3 text-slate-600 max-w-md">${r.logic}</td>
+                      <td class="px-4 py-3 text-slate-600">${r.source}</td>
+                      <td class="px-4 py-3 font-mono text-slate-500 whitespace-nowrap">${r.effective}</td>
+                      <td class="px-4 py-3 whitespace-nowrap">
+                        <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800">${r.status}</span>
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Live Immutable Audit Log -->
+          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                <i class="fa-solid fa-clock-rotate-left text-emerald-700 mr-1.5"></i>Live Immutable Audit Log (${state.auditLogs.length} Events)
+              </h3>
+              <span class="text-[11px] font-mono text-emerald-700">Append-Only Compliance Trail</span>
+            </div>
+            <div class="overflow-x-auto max-h-80 overflow-y-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50 text-slate-600 uppercase text-[10px] border-b border-slate-200 sticky top-0">
+                  <tr>
+                    <th class="px-4 py-2.5">Timestamp (UTC)</th>
+                    <th class="px-4 py-2.5">Actor Role</th>
+                    <th class="px-4 py-2.5">Action</th>
+                    <th class="px-4 py-2.5">Target</th>
+                    <th class="px-4 py-2.5">Rule Version</th>
+                    <th class="px-4 py-2.5">Details</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  ${state.auditLogs.map(l => `
+                    <tr>
+                      <td class="px-4 py-2.5 font-mono text-slate-500 whitespace-nowrap">${l.ts}</td>
+                      <td class="px-4 py-2.5 whitespace-nowrap"><span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700">${l.actor}</span></td>
+                      <td class="px-4 py-2.5 font-mono font-bold text-navy-900 whitespace-nowrap">${l.action}</td>
+                      <td class="px-4 py-2.5 font-mono text-slate-600 whitespace-nowrap">${l.target}</td>
+                      <td class="px-4 py-2.5 font-mono text-emerald-700 whitespace-nowrap">${l.ruleVersion}</td>
+                      <td class="px-4 py-2.5 text-slate-700">${l.details}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 6. CROSS-PORTAL EVENT HANDLERS
+    // =========================================================================
+    window.switchPortal = function(id) {
+      state.activePortal = id;
+      renderApp();
+    };
+
+    window.setBorrowerStep = function(step) {
+      state.borrower.step = step;
+      renderApp();
+    };
+
+    window.updateBorrowerProfile = function(key, val) {
+      state.borrower.profile[key] = val;
+      renderApp();
+    };
+
+    window.updateBorrowerConsent = function(key, val) {
+      state.borrower.profile[key] = val;
+      logAudit('BORROWER', 'CONSENT_UPDATE', key.toUpperCase(), `Consent ${key} set to ${val}`);
+      showToast(`Recorded timestamped consent update (${key}: ${val ? 'GRANTED' : 'REVOKED'}).`, 'info');
+      renderApp();
+    };
+
+    window.toggleBorrowerDoc = function(docId, checked) {
+      state.borrower.docsChecked[docId] = checked;
+      logAudit('BORROWER', 'DOC_UPLOAD', docId, `Document marked ${checked ? 'UPLOADED' : 'REMOVED'}`);
+      renderApp();
+    };
+
+    window.updateBorrowerAsset = function(key, val) {
+      state.borrower.asset[key] = val;
+      renderApp();
+    };
+
+    window.submitBorrowerDossier = function(lenderName) {
+      const p = state.borrower.profile;
+      const val = computeBorrowerValuation(state.borrower.asset);
+      const r = computeReadinessScore();
+
+      if (!p.crbAccessConsent || !p.crbSharingConsent) {
+        showToast('Both CRB Access and Inter-Bank Sharing consents (Step 1) are required before submission.', 'error');
+        return;
+      }
+      if (p.equitySource === 'BANK_DEBT') {
+        showToast('Submission blocked (ELIG-04): Minimum equity contribution cannot come from debt financing.', 'error');
+        return;
+      }
+
+      const newId = 'APP-2026-' + (101 + state.applications.length);
+      const newApp = {
+        id: newId,
+        submittedAt: new Date().toISOString().replace('T', ' ').substring(0, 16) + ' EAT',
+        applicantName: p.applicantName,
+        businessName: p.businessName,
+        legalForm: p.legalForm,
+        purpose: p.purpose,
+        requestedAmount: p.requestedAmount,
+        tenorMonths: p.tenorMonths,
+        declaredEquityPct: p.declaredEquityPct,
+        equitySource: p.equitySource,
+        assetSummary: `${state.borrower.asset.assetClass.replace(/_/g, ' ')} (Service Yr: ${state.borrower.asset.serviceYear}, EC: ${state.borrower.asset.ecValue})`,
+        indicativeEV: val.insufficientData ? 0 : val.ev,
+        safetyMarginPct: val.safetyMarginPct,
+        readinessScore: r.score,
+        insuranceConsent: p.insuranceConsent,
+        crbDate: '2026-11-18',
+        status: 'UNDER_APPRAISAL',
+        lafNumber: 'LAF-ECB-2026-0' + (415 + state.applications.length),
+        committeeSigned: false,
+        pinnedRuleVersion: state.activeRuleVersion,
+        docVerifications: {
+          trade_license: state.borrower.docsChecked.trade_license ? 'ORIGINAL_SEEN' : 'PENDING',
+          principal_reg: state.borrower.docsChecked.principal_reg ? 'ORIGINAL_SEEN' : 'PENDING',
+          tin_all: state.borrower.docsChecked.tin_all ? 'ORIGINAL_SEEN' : 'PENDING',
+          erca_clearance: state.borrower.docsChecked.erca_clearance ? 'ORIGINAL_SEEN' : 'PENDING',
+          audited_fin: state.borrower.docsChecked.audited_fin ? 'ORIGINAL_SEEN' : 'PENDING',
+          business_plan: state.borrower.docsChecked.business_plan ? 'ORIGINAL_SEEN' : 'PENDING'
+        },
+        rating: { financial: 26, business: 8, management: 12, account: 19, relationship: 11, isRecentCCR: false, discrepancy: 'NONE' }
+      };
+
+      state.applications.unshift(newApp);
+      state.bank.selectedAppId = newId;
+      logAudit('BORROWER', 'SUBMIT_DOSSIER', newId, `Submitted structured dossier for ${p.businessName} to ${lenderName}`);
+      showToast(`Dossier ${newId} routed to Portal 2 (Bank / MFI Officer Portal) for official appraisal.`, 'success');
+      state.activePortal = 'bank';
+      state.bank.subTab = 'appraisal';
+      renderApp();
+    };
+
+    // Portal 2 Handlers
+    window.setBankSubTab = function(tab) {
+      state.bank.subTab = tab;
+      renderApp();
+    };
+
+    window.selectBankApp = function(id) {
+      state.bank.selectedAppId = id;
+      renderApp();
+    };
+
+    window.setDocVerification = function(appId, docKey, status) {
+      const app = state.applications.find(a => a.id === appId);
+      if (app) {
+        app.docVerifications[docKey] = status;
+        logAudit('CREDIT_OFFICER', 'DOC_VERIFY', `${appId}:${docKey}`, `Document marked ${status}`, app.pinnedRuleVersion);
+        renderApp();
+      }
+    };
+
+    window.updateBankRating = function(appId, key, val) {
+      const app = state.applications.find(a => a.id === appId);
+      if (app) {
+        app.rating[key] = val;
+        renderApp();
+      }
+    };
+
+    window.updateBankRatingFlag = function(appId, key, val) {
+      const app = state.applications.find(a => a.id === appId);
+      if (app) {
+        app.rating[key] = val;
+        renderApp();
+      }
+    };
+
+    window.updateAppField = function(appId, key, val) {
+      const app = state.applications.find(a => a.id === appId);
+      if (app) {
+        app[key] = val;
+        renderApp();
+      }
+    };
+
+    window.decideApplication = function(appId, decision) {
+      const app = state.applications.find(a => a.id === appId);
+      if (!app) return;
+      if (decision === 'APPROVED' && !app.committeeSigned) {
+        showToast('Governance Check: Please confirm ≥ 2/3 Approving Committee Signatures on the LAF before approving.', 'warning');
+        return;
+      }
+      app.status = decision;
+      logAudit('CREDIT_OFFICER', 'LAF_DECISION', appId, `LAF ${app.lafNumber} marked ${decision} (≥2/3 signatures: ${app.committeeSigned})`, app.pinnedRuleVersion);
+      if (decision === 'APPROVED') {
+        state.insurance.selectedAppId = appId;
+        state.insurance.policy.insuredValue = app.indicativeEV;
+        showToast(`Loan ${appId} APPROVED! Portal 3 (Collateral Insurance Marketplace) is now UNLOCKED.`, 'success');
+      } else {
+        showToast(`Loan ${appId} marked DECLINED.`, 'warning');
+      }
+      renderApp();
+    };
+
+    // Maker / Checker Valuation Workbench Handlers
+    window.setWorkbenchRole = function(role) {
+      state.bank.workbench.role = role;
+      renderApp();
+    };
+
+    window.updateWorkbench = function(key, val) {
+      state.bank.workbench[key] = val;
+      renderApp();
+    };
+
+    window.updateGateCheck = function(id, status) {
+      const g = state.bank.workbench.gateChecks.find(x => x.id === id);
+      if (g) g.status = status;
+      renderApp();
+    };
+
+    window.loadRegressionTest = function() {
+      const w = state.bank.workbench;
+      w.caseId = 'VAL-REG-1995';
+      w.assetTitle = '1995 Italian Production Machine (Regression Test)';
+      w.assetClass = 'MANUFACTURING';
+      w.isPartialFactory = false;
+      w.state = 'DRAFT';
+      w.pinnedRuleVersion = state.activeMechVersion;
+      w.mc = 700000;
+      w.dc = 220000;
+      w.uc = 80000;
+      w.cifValue = 800000;
+      w.fxRate = 1.00;
+      w.dutyStatus = 'PAID';
+      w.dutyFreeEntitlement = false;
+      w.use75CifAllowance = false;
+      w.serviceYear = 7;
+      w.mmRegion = 'WEST_EUROPE';
+      w.ecValue = 0.80;
+      w.ecJustification = '1995 Italian Production Machine regression baseline (n=7, Dr=0.7780, MM=1.0, EC=0.80 -> multiplier 0.6224).';
+      logAudit('MAKER', 'LOAD_REGRESSION', 'VAL-REG-1995', 'Loaded 1995 Italian Production Machine Regression Test (n=7, Dr=0.778, MM=1.0, EC=0.8)', w.pinnedRuleVersion);
+      showToast('Loaded 1995 Italian Production Machine Regression Test (Multiplier: 0.6224).', 'info');
+      renderApp();
+    };
+
+    window.makerSubmitValuation = function() {
+      const w = state.bank.workbench;
+      if (w.isPartialFactory) {
+        showToast('BLOCKED (VAL-06): Partial industrial factory estimation is prohibited.', 'error');
+        return;
+      }
+      if (w.gateChecks.some(g => g.status === 'FAIL')) {
+        showToast('Cannot submit: One or more pre-calculation verification gates are marked FAIL.', 'error');
+        return;
+      }
+      if (!w.ecJustification.trim()) {
+        showToast('Mandatory EC inspection justification is required before submitting.', 'warning');
+        return;
+      }
+      w.state = 'MAKER_SUBMITTED';
+      w.pinnedRuleVersion = state.activeMechVersion;
+      logAudit('MAKER', 'VALUATION_SUBMIT', w.caseId, `Locked Maker valuation at ${w.pinnedRuleVersion} for independent Checker review`, w.pinnedRuleVersion);
+      showToast(`Valuation ${w.caseId} locked (${w.pinnedRuleVersion}). Switch to Checker role to approve, return, or escalate.`, 'success');
+      renderApp();
+    };
+
+    window.checkerAction = function(newState) {
+      const w = state.bank.workbench;
+      w.state = newState;
+      logAudit('CHECKER', 'VALUATION_REVIEW', w.caseId, `Checker transitioned case to ${newState}`, w.pinnedRuleVersion);
+      if (newState === 'APPROVED') showToast(`Valuation ${w.caseId} APPROVED & permanently locked.`, 'success');
+      else if (newState === 'RETURNED_FOR_CORRECTION') {
+        w.state = 'DRAFT';
+        showToast(`Valuation ${w.caseId} returned to Maker for correction.`, 'warning');
+      } else {
+        showToast(`Valuation ${w.caseId} escalated to Division Manager for exception approval.`, 'info');
+      }
+      renderApp();
+    };
+
+    // Portal 3 Handlers
+    window.selectInsuranceQuote = function(quoteId, insurerName) {
+      state.insurance.selectedQuoteId = quoteId;
+      logAudit('BORROWER', 'INSURANCE_QUOTE_SELECT', quoteId, `Selected collateral insurance quote from ${insurerName}`);
+      showToast(`Selected quote from ${insurerName}.`, 'success');
+      renderApp();
+    };
+
+    window.updatePolicy = function(key, val) {
+      state.insurance.policy[key] = val;
+      renderApp();
+    };
+
+    window.confirmPolicyForDisbursement = function(appId) {
+      const pol = state.insurance.policy;
+      const app = state.applications.find(a => a.id === appId);
+      if (!state.insurance.selectedQuoteId) {
+        showToast('Please select a licensed Ethiopian insurer quote first.', 'warning');
+        return;
+      }
+      if (!pol.policyNumber.trim()) {
+        pol.policyNumber = 'POL-ETH-2026-' + Math.floor(1000 + Math.random() * 9000);
+      }
+      if (!pol.lossPayeeConfirmed) {
+        showToast('Please verify the Lender Interest / Loss-Payee Clause checkbox before clearing for disbursement.', 'warning');
+        return;
+      }
+      pol.confirmedForDisbursement = true;
+      if (app) app.status = 'DISBURSEMENT_CLEARED';
+      logAudit('CREDIT_OFFICER', 'DISBURSEMENT_CLEARED', appId, `Verified Policy ${pol.policyNumber} (Insured: ${formatETB(pol.insuredValue)}) & activated Renewal Alert (${pol.expiryDate})`);
+      showToast(`Policy ${pol.policyNumber} verified! Status updated to DISBURSEMENT_CLEARED and Renewal Monitoring activated.`, 'success');
+      renderApp();
+    };
+
+    // Portal 4 Handlers
+    window.publishNewRuleVersion = function() {
+      state.ruleMinorCounter += 1;
+      state.activeRuleVersion = `ECB_Baseline_v1.${state.ruleMinorCounter}`;
+      state.activeMechVersion = `ECB_Mech_v1.${state.ruleMinorCounter}`;
+      logAudit('ADMIN', 'PUBLISH_RULE_VERSION', state.activeRuleVersion, `Published ${state.activeRuleVersion} / ${state.activeMechVersion} (Historical locked records remain pinned)`, state.activeRuleVersion);
+      showToast(`Published ${state.activeRuleVersion}. Historical pinned valuations and appraisals remain untouched.`, 'success');
+      renderApp();
+    };
+
+    // Boot Application
+    renderApp();
+  </script>
+</body>
+</html>
